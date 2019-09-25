@@ -4,13 +4,13 @@ import GameBase from './firebase';
 // TODO: Basic && Functions
 const ZoneColors = [
   'linear-gradient(135deg, #343a40, #007bff, #20c997)',
-  'linear-gradient(180deg, #343a40, #007bff, #20c997)',
+  'linear-gradient(180deg, #007bff, #20c997)',
   'linear-gradient(225deg, #343a40, #007bff, #20c997)',
-  'linear-gradient(90deg, #343a40, #007bff, #20c997)',
+  'linear-gradient(90deg, #007bff, #20c997)',
   '#20c997',
-  'linear-gradient(270deg, #343a40, #007bff, #20c997)',
+  'linear-gradient(270deg, #007bff, #20c997)',
   'linear-gradient(45deg, #343a40, #007bff, #20c997)',
-  'linear-gradient(0deg, #343a40, #007bff, #20c997)',
+  'linear-gradient(0deg, #007bff, #20c997)',
   'linear-gradient(315deg, #343a40, #007bff, #20c997)',
 
   // { bg: '#20c997', text: '#fff' },

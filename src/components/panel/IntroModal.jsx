@@ -46,7 +46,13 @@ function useCustom({ setShow }) {
 
     onNewGame: useCallback(() => dispatch({
       action    : 'NEW_GAME',
-      onSuccess : () => setShow(false)
+      onSuccess : ({ gameID }) => {
+        setShow(false);
+
+        window.open(`https://social-plugins.line.me/lineit/share?url=${ encodeURIComponent(
+          `https://tabacotaco.github.io/puzzle-bingo339?gameID=${ gameID }`
+        )}`);
+      }
     }), [ dispatch, setShow ]),
 
     onJoinGame: useCallback(() => dispatch({

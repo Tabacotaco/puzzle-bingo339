@@ -7,6 +7,8 @@
   "NEW_GAME": "New Game",
   "JOIN_GAME": "Join To",
 
+  "BTN_TO_MENU": "回選單",
+
   "MSG_REQUEST_ERROR": "系統錯誤.",
   "MSG_REQUIRED_GAME_ID": "請輸入遊戲序號.",
   "MSG_INVALID_VALUE": "不正確的資料值.",
