@@ -52,7 +52,7 @@ function doResponse({ dispatch }, { onSuccess = emptyFn, onFail = emptyFn }, par
 
 // TODO: Reducers
 export function StateReducer(state, {
-  gameID     = state.gameID     , userID,
+  gameID     = state.gameID     , userID = state.userID,
   owner      = state.owner      , status,
   competitor = state.competitor , msg,
   bingoNums  = state.bingoNums  , rounds

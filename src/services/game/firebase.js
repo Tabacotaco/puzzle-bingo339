@@ -104,7 +104,7 @@ export default {
 
       return snapshot.ref.update(values)
         .then(() => snapshot.ref.child('rounds').push({ caller: values.owner }))
-        .then(() => ({ status: 200, content: { ...values, userID: getUserUID() } }));
+        .then(() => ({ status: 200, content: { ...values, userID: getUserUID() }}));
     })
     .catch(err => ({ status: 500, content: err.message })),
 

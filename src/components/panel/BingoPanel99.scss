@@ -1,25 +1,32 @@
 div.bingo-99 {
-  div.alert.waiting-tip {
-    position: relative;
-    font-weight: bolder;
-    text-align: center;
+  div.alert-message.row {
+    position: fixed;
+    top: 30vh;
+    left: 1rem;
+    width: 100vw;
 
-    &::before {
-      content: "";
-      display: block;
-      text-align: left;
-      font-size: 2rem;
-      animation: waiting infinite 2s linear;
-    }
-
-    &::after {
-      content: "\f110";
-      position: absolute;
-      display: inline-block;
-      top: 1.25rem;
-      right: 1.25rem;
-      font: normal normal normal 2rem/1 FontAwesome;
-      animation: rotate360 infinite 2s linear;
+    & > div.waiting-tip {
+      position: relative;
+      font-weight: bolder;
+      text-align: center;
+  
+      &::before {
+        content: "";
+        display: block;
+        text-align: left;
+        font-size: 2rem;
+        animation: waiting infinite 2s linear;
+      }
+  
+      &::after {
+        content: "\f110";
+        position: absolute;
+        display: inline-block;
+        top: 1.25rem;
+        right: 1.25rem;
+        font: normal normal normal 2rem/1 FontAwesome;
+        animation: rotate360 infinite 2s linear;
+      }
     }
   }
 
