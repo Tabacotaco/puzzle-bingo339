@@ -2,7 +2,7 @@
   "name": "puzzle-bingo339",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tabacotaco.github.io/puzzle-bingo/",
+  "homepage": "https://tabacotaco.github.io/puzzle-bingo339/",
   "scripts": {
     "start": "react-scripts start",
     "build": "(if exist docs rmdir /Q /S docs) && react-scripts build && ren build docs",
