@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import $ from 'jquery';
 
@@ -18,12 +18,12 @@ window.$ = $;
 
 import('bootstrap').then(() => ReactDOM.render((
   <I18n>
-    <BrowserRouter basename="/puzzle-bingo339">
-      <Game>
-        <Switch>
+    <Game>
+      <HashRouter>
+        <Switch location={ window.location }>
           <Route component={ App } />
         </Switch>
-      </Game>
-    </BrowserRouter>
+      </HashRouter>
+    </Game>
   </I18n>
 ), document.getElementById('root')));

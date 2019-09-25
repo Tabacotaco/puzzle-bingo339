@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/puzzle-bingo339/static/css/main.c695be46.chunk.css",
-    "main.js": "/puzzle-bingo339/static/js/main.08956aa0.chunk.js",
-    "main.js.map": "/puzzle-bingo339/static/js/main.08956aa0.chunk.js.map",
+    "main.js": "/puzzle-bingo339/static/js/main.d89903ec.chunk.js",
+    "main.js.map": "/puzzle-bingo339/static/js/main.d89903ec.chunk.js.map",
     "runtime~main.js": "/puzzle-bingo339/static/js/runtime~main.0a815d81.js",
     "runtime~main.js.map": "/puzzle-bingo339/static/js/runtime~main.0a815d81.js.map",
-    "static/js/2.71296fe9.chunk.js": "/puzzle-bingo339/static/js/2.71296fe9.chunk.js",
-    "static/js/2.71296fe9.chunk.js.map": "/puzzle-bingo339/static/js/2.71296fe9.chunk.js.map",
+    "static/js/2.9f5aa834.chunk.js": "/puzzle-bingo339/static/js/2.9f5aa834.chunk.js",
+    "static/js/2.9f5aa834.chunk.js.map": "/puzzle-bingo339/static/js/2.9f5aa834.chunk.js.map",
     "static/js/3.b60bb382.chunk.js": "/puzzle-bingo339/static/js/3.b60bb382.chunk.js",
     "static/js/3.b60bb382.chunk.js.map": "/puzzle-bingo339/static/js/3.b60bb382.chunk.js.map",
     "static/js/4.4198afc1.chunk.js": "/puzzle-bingo339/static/js/4.4198afc1.chunk.js",
@@ -14,7 +14,7 @@
     "static/js/5.94f84276.chunk.js": "/puzzle-bingo339/static/js/5.94f84276.chunk.js",
     "static/js/5.94f84276.chunk.js.map": "/puzzle-bingo339/static/js/5.94f84276.chunk.js.map",
     "index.html": "/puzzle-bingo339/index.html",
-    "precache-manifest.a2d180f06c08006312d52eedf2623d8c.js": "/puzzle-bingo339/precache-manifest.a2d180f06c08006312d52eedf2623d8c.js",
+    "precache-manifest.a1a7868b1f91202aedcf44232b36e801.js": "/puzzle-bingo339/precache-manifest.a1a7868b1f91202aedcf44232b36e801.js",
     "service-worker.js": "/puzzle-bingo339/service-worker.js",
     "static/css/main.c695be46.chunk.css.map": "/puzzle-bingo339/static/css/main.c695be46.chunk.css.map",
     "static/media/index.scss": "/puzzle-bingo339/static/media/fontawesome-webfont.fee66e71.woff"
