@@ -80,28 +80,31 @@ export default {
   doNewGame: (listenerFn = () => {}) => database.ref('GameRoom')
     .push({ owner: getUserUID(), status: 'WAITING', competitor: '', rounds: [], msg: [] })
     .then(gameRoom => connectWS(gameRoom, listenerFn) || {
-      status: 200,
-      content: { gameID: gameID(gameRoom.key), status: 'WAITING', owner: getUserUID() }
+      status  : 200,
+      content : { gameID: gameID(gameRoom.key), status: 'WAITING', owner: getUserUID(), userID: getUserUID() }
     })
     .catch(err => ({ status: 500, content: err.message })),
 
   // TODO: To join a game by specific GAME KEY
   doJoinGame: (key, listenerFn = () => {}) => getRoom(key)
     .then(snapshot => {
-      const values = snapshot.val();
-      const { owner, status } = values;
+      const values = {
+        ...snapshot.val(),
+        gameID     : gameID(key),
+        competitor : getUserUID()
+      };
 
-      if (owner === getUserUID())
+      if (values.owner === getUserUID())
         throw new Error('MSG_PLAYER_DUPLICATED');
-      else if ('WAITING' !== status)
+      else if ('WAITING' !== values.status)
         throw new Error('MSG_UNALLOWED_VISIT');
 
+      values.status = 'PLAYING';
       connectWS(snapshot.ref, listenerFn);
 
-      return snapshot.ref.update({ ...values, status: 'PLAYING', competitor: getUserUID() }).then(() => ({
-        status  : 200,
-        content : { ...values, gameID: gameID(key), status: 'PLAYING', competitor: getUserUID() }
-      }));
+      return snapshot.ref.update(values)
+        .then(() => snapshot.ref.child('rounds').push({ caller: values.owner }))
+        .then(() => ({ status: 200, content: { ...values, userID: getUserUID() } }));
     })
     .catch(err => ({ status: 500, content: err.message })),
 

@@ -10,26 +10,28 @@ function useSelectNumber(dispatch) {
 };
 
 export default function BingoPanel99() {
-  const { bingoNums, dispatch } = useGame();
+  const { bingoNums, userID, status, rounds, dispatch } = useGame();
   const onSelectNumber = useSelectNumber(dispatch);
-
+console.log(userID, status, rounds);
   return (
-    <BsContainer className="bingo-99">
+    <BsContainer className="bingo-99 text-white">
       <BsRow>
-        { Object.keys(bingoNums).map(zone => ({ ...bingoNums[zone], zone })).map(({ zone, numbers, color: { bg, text } }) => (
-          <BsCol key={`zone-${ zone }`} className={`zone-${ zone }`} padding={ 1 } width={ 4 } border rounded>
-            <BsContainer padding={ 0 }>
-              <BsRow margin={ 0 } options={{ style: { background: bg, color: text }}}>
-                { numbers.map(num => (
-                  <BsCol key={`number-${ num }`} tagName="button" className="bingo-number text-center"
-                    rounded border width={ 4 } padding={ 2 } options={{ onClick: onSelectNumber(num) }}>
-                    { num }
-                  </BsCol>
-                ))}
-              </BsRow>
-            </BsContainer>
-          </BsCol>
-        ))}
+        <BsCol className="container numbers" width={{ def: 11, sm: 10, md: 8, lg: 6}}>
+          <BsRow align="center">
+            { Object.keys(bingoNums).map(zone => ({ ...bingoNums[zone], zone })).map(({ zone, numbers, color }) => (
+              <BsCol key={`zone-${ zone }`} className={`container zone zone-${ zone }`} padding={ 0 } margin={ 0 } width={ 4 } border rounded>
+                <BsRow margin={ 1 } options={{ style: { background: color }}}>
+                  { numbers.map(num => (
+                    <BsCol key={`number-${ num }`} tagName="button" className="bingo-number text-center"
+                      rounded border width={ 4 } padding={ 0 } options={{ onClick: onSelectNumber(num) }}>
+                      { num }
+                    </BsCol>
+                  ))}
+                </BsRow>
+              </BsCol>
+            ))}
+          </BsRow>
+        </BsCol>
       </BsRow>
     </BsContainer>
   );

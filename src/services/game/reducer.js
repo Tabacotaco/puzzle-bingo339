@@ -3,15 +3,25 @@ import GameBase from './firebase';
 
 // TODO: Basic && Functions
 const ZoneColors = [
-  { bg: '#20c997', text: '#fff' },
-  { bg: '#fd7e14', text: '#fff' },
-  { bg: '#e83e8c', text: '#fff' },
-  { bg: '#6610f2', text: '#fff' },
-  { bg: '#6c757d', text: '#fff' },
-  { bg: '#ffc107', text: '#fff' },
-  { bg: '#dc3545', text: '#fff' },
-  { bg: '#28a745', text: '#fff' },
-  { bg: '#007bff', text: '#fff' }
+  'linear-gradient(135deg, #343a40, #007bff, #20c997)',
+  'linear-gradient(180deg, #343a40, #007bff, #20c997)',
+  'linear-gradient(225deg, #343a40, #007bff, #20c997)',
+  'linear-gradient(90deg, #343a40, #007bff, #20c997)',
+  '#20c997',
+  'linear-gradient(270deg, #343a40, #007bff, #20c997)',
+  'linear-gradient(45deg, #343a40, #007bff, #20c997)',
+  'linear-gradient(0deg, #343a40, #007bff, #20c997)',
+  'linear-gradient(315deg, #343a40, #007bff, #20c997)',
+
+  // { bg: '#20c997', text: '#fff' },
+  // { bg: '#fd7e14', text: '#fff' },
+  // { bg: '#e83e8c', text: '#fff' },
+  // { bg: '#6610f2', text: '#fff' },
+  // { bg: '#6c757d', text: '#fff' },
+  // { bg: '#ffc107', text: '#fff' },
+  // { bg: '#dc3545', text: '#fff' },
+  // { bg: '#28a745', text: '#fff' },
+  // { bg: '#007bff', text: '#fff' }
 ];
 
 function emptyFn() {}
@@ -42,15 +52,16 @@ function doResponse({ dispatch }, { onSuccess = emptyFn, onFail = emptyFn }, par
 
 // TODO: Reducers
 export function StateReducer(state, {
-  gameID     = state.gameID     , status,
-  owner      = state.owner      , msg,
-  competitor = state.competitor , rounds,
-  bingoNums  = state.bingoNums
+  gameID     = state.gameID     , userID,
+  owner      = state.owner      , status,
+  competitor = state.competitor , msg,
+  bingoNums  = state.bingoNums  , rounds
 }) {
   return {
-    gameID     , status : status || state.status,
-    owner      , msg    : msg ? [ ...state.msg, msg ] : state.msg,
-    competitor , rounds : rounds ? [ ...state.rounds, rounds ] : state.rounds,
+    userID     , status : status || state.status,
+    gameID     , msg    : msg ? [ ...state.msg, msg ] : state.msg,
+    owner      , rounds : rounds ? [ ...state.rounds, rounds ] : state.rounds,
+    competitor , 
     bingoNums  : status !== 'PLAYING' || status === state.status ? bingoNums : (() => {
       const nums = [];
 

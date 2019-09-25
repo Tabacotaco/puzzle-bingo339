@@ -52,7 +52,8 @@ function useCustom({ setShow }) {
     onJoinGame: useCallback(() => dispatch({
       action    : 'JOIN_GAME',
       gameID    : gameID,
-      onSuccess : () => setShow(false)
+      onSuccess : () => setShow(false),
+      onFail    : err => console.log(err)
     }), [ gameID, dispatch, setShow ])
   };
 }

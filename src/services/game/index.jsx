@@ -4,7 +4,7 @@ import { StateReducer, ActionReducer } from './reducer';
 
 
 // TODO: Basic
-const defaultOptions = { gameID: '', status: '', owner: '', competitor: '', msg: [], rounds: [], bingoNums: [] };
+const defaultOptions = { userID: '', gameID: '', status: '', owner: '', competitor: '', msg: [], rounds: [], bingoNums: []};
 
 
 // TODO: Components

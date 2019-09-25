@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/puzzle-bingo339/static/css/main.d4ca9867.chunk.css",
-    "main.js": "/puzzle-bingo339/static/js/main.47525001.chunk.js",
-    "main.js.map": "/puzzle-bingo339/static/js/main.47525001.chunk.js.map",
+    "main.css": "/puzzle-bingo339/static/css/main.6f4a1570.chunk.css",
+    "main.js": "/puzzle-bingo339/static/js/main.084c5985.chunk.js",
+    "main.js.map": "/puzzle-bingo339/static/js/main.084c5985.chunk.js.map",
     "runtime~main.js": "/puzzle-bingo339/static/js/runtime~main.a984228c.js",
     "runtime~main.js.map": "/puzzle-bingo339/static/js/runtime~main.a984228c.js.map",
     "static/js/2.c326f56a.chunk.js": "/puzzle-bingo339/static/js/2.c326f56a.chunk.js",
@@ -14,9 +14,9 @@
     "static/js/5.a86a9b03.chunk.js": "/puzzle-bingo339/static/js/5.a86a9b03.chunk.js",
     "static/js/5.a86a9b03.chunk.js.map": "/puzzle-bingo339/static/js/5.a86a9b03.chunk.js.map",
     "index.html": "/puzzle-bingo339/index.html",
-    "precache-manifest.892c881ce1b07a80679e503886a97383.js": "/puzzle-bingo339/precache-manifest.892c881ce1b07a80679e503886a97383.js",
+    "precache-manifest.4ff5f73c65dbb76b6688840869066227.js": "/puzzle-bingo339/precache-manifest.4ff5f73c65dbb76b6688840869066227.js",
     "service-worker.js": "/puzzle-bingo339/service-worker.js",
-    "static/css/main.d4ca9867.chunk.css.map": "/puzzle-bingo339/static/css/main.d4ca9867.chunk.css.map",
+    "static/css/main.6f4a1570.chunk.css.map": "/puzzle-bingo339/static/css/main.6f4a1570.chunk.css.map",
     "static/media/index.scss": "/puzzle-bingo339/static/media/fontawesome-webfont.fee66e71.woff"
   }
 }

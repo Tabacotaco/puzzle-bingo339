@@ -1,7 +1,22 @@
 div.bingo-99 {
-  button.bingo-number {
-    line-height: 2.2;
-    background: rgba(0, 0, 0, 0);
-    color: inherit;
+  div.zone.container.col {
+    position: relative;
+    padding-top: 33.33333% !important;
+
+    & > div.row {
+      position:  absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      
+      button.bingo-number {
+        background: rgba(0, 0, 0, 0);
+        color: inherit;
+        height: 33.33333% !important;
+        justify-content: center !important;
+        align-items: center !important;
+      }
+    }
   }
 }
