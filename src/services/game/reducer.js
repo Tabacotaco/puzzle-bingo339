@@ -107,6 +107,9 @@ export function ActionReducer(state, params) {
       GameBase.doSendMessage(gameID, msg).then(doResponse(state, params, { msg }));
       break;
 
+    case 'CALL_NUMBER':
+      
+
     default:
   }
   return state;

@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "df48302f18a5eaa0793916d9621c387d",
+    "revision": "3c8abb8cc54deb5849526e71e2ed7efe",
     "url": "/puzzle-bingo339/index.html"
   },
   {
-    "revision": "522ba56b500f80bd0176",
+    "revision": "12b257de7bd03b45cbde",
     "url": "/puzzle-bingo339/static/css/main.c695be46.chunk.css"
   },
   {
@@ -24,8 +24,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/puzzle-bingo339/static/js/5.94f84276.chunk.js"
   },
   {
-    "revision": "522ba56b500f80bd0176",
-    "url": "/puzzle-bingo339/static/js/main.f50560ce.chunk.js"
+    "revision": "12b257de7bd03b45cbde",
+    "url": "/puzzle-bingo339/static/js/main.0ede07d0.chunk.js"
   },
   {
     "revision": "1fa1fe7675af26cb3d75",
