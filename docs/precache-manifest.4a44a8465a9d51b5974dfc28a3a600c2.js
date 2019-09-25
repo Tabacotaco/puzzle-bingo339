@@ -1,35 +1,35 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "da60fed33a722bf67ce45842b71aec14",
+    "revision": "6864c93f1a762072534e9bfb6316c365",
     "url": "/puzzle-bingo/index.html"
   },
   {
-    "revision": "6cbecaf99bb68a9ae6aa",
+    "revision": "fb5a2216c9cc72a71169",
     "url": "/puzzle-bingo/static/css/main.605c312f.chunk.css"
   },
   {
-    "revision": "104b1d9808f4a762852d",
-    "url": "/puzzle-bingo/static/js/2.6a11e2d6.chunk.js"
+    "revision": "b40e97840d95a3126fd6",
+    "url": "/puzzle-bingo/static/js/2.6744676c.chunk.js"
   },
   {
-    "revision": "b031ac08c76a2a5999d1",
-    "url": "/puzzle-bingo/static/js/3.e94685a2.chunk.js"
+    "revision": "a517b1b34c1bce6cff1f",
+    "url": "/puzzle-bingo/static/js/3.b60bb382.chunk.js"
   },
   {
-    "revision": "a736128d1ad07217682f",
-    "url": "/puzzle-bingo/static/js/4.a87aedc6.chunk.js"
+    "revision": "e45793a5d9a16e3897d2",
+    "url": "/puzzle-bingo/static/js/4.4198afc1.chunk.js"
   },
   {
-    "revision": "23401f8134579e644de7",
-    "url": "/puzzle-bingo/static/js/5.b43eedc4.chunk.js"
+    "revision": "4dc8576e7888fbb2a68b",
+    "url": "/puzzle-bingo/static/js/5.94f84276.chunk.js"
   },
   {
-    "revision": "6cbecaf99bb68a9ae6aa",
-    "url": "/puzzle-bingo/static/js/main.42a0d0a8.chunk.js"
+    "revision": "fb5a2216c9cc72a71169",
+    "url": "/puzzle-bingo/static/js/main.6d37f68d.chunk.js"
   },
   {
-    "revision": "eb248987967ed948e865",
-    "url": "/puzzle-bingo/static/js/runtime~main.a37e7d0b.js"
+    "revision": "3dcd230c01c2f8211d88",
+    "url": "/puzzle-bingo/static/js/runtime~main.990db877.js"
   },
   {
     "revision": "674f50d287a8c48dc19ba404d20fe713",

@@ -32,7 +32,7 @@ function useCustom({ setShow }) {
   const [ expand, setExpand ] = useState(useMemo(() => gameID ? 'join' : 'main', [ gameID ]));
   const doSwitch = useCallback(collapseID => setExpand(collapseID), [ setExpand ]);
 
-  useEffect(() => 'main' === expand ? window.history.pushState({}, document.title, '/') : undefined);
+  useEffect(() => 'main' === expand ? window.history.replaceState({}, document.title, '/puzzle-bingo339') : undefined);
 
   return {
     gameID,

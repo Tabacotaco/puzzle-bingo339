@@ -20,7 +20,7 @@ import('bootstrap').then(() => ReactDOM.render((
   <I18n>
     <Game>
       <HashRouter>
-        <Switch location={ window.location }>
+        <Switch>
           <Route component={ App } />
         </Switch>
       </HashRouter>
