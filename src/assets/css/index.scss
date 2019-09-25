@@ -1,0 +1,75 @@
+@import "bootstrap/scss/bootstrap.scss";
+@import "font-awesome/scss/font-awesome.scss";
+
+body {
+  color: var(--white);
+  background-color: var(--dark);
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  // TODO: Bootstrap Modal
+  div.puzzle-bingo-bs.modal.fade {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    transition: opacity .15s linear;
+  }
+
+  // TODO: Shadow
+  .text-shadow-sm-primary { text-shadow: 0 .125rem .25rem rgba(0, 123, 255, .5) !important; }
+  .text-shadow-sm-secondary { text-shadow: 0 .125rem .25rem rgba(109, 118, 126, .5) !important; }
+  .text-shadow-sm-success { text-shadow: 0 .125rem .25rem rgba(41, 168, 71, .5) !important; }
+  .text-shadow-sm-danger { text-shadow: 0 .125rem .25rem rgba(220, 56, 72, .5) !important; }
+  .text-shadow-sm-warning { text-shadow: 0 .125rem .25rem rgba(255, 193, 5, .5) !important; }
+  .text-shadow-sm-info { text-shadow: 0 .125rem .25rem rgba(23, 164, 186, .5) !important; }
+  .text-shadow-sm-light { text-shadow: 0 .125rem .25rem rgba(249, 250, 251, .5) !important; }
+  .text-shadow-sm-dark { text-shadow: 0 .125rem .25rem rgba(53, 59, 65, .5) !important; }
+
+  .text-shadow-primary { text-shadow: 0 .5rem 1rem rgba(0, 123, 255, .5) !important; }
+  .text-shadow-secondary { text-shadow: 0 .5rem 1rem rgba(109, 118, 126, .5) !important; }
+  .text-shadow-success { text-shadow: 0 .5rem 1rem rgba(41, 168, 71, .5) !important; }
+  .text-shadow-danger { text-shadow: 0 .5rem 1rem rgba(220, 56, 72, .5) !important; }
+  .text-shadow-warning { text-shadow: 0 .5rem 1rem rgba(255, 193, 5, .5) !important; }
+  .text-shadow-info { text-shadow: 0 .5rem 1rem rgba(23, 164, 186, .5) !important; }
+  .text-shadow-light { text-shadow: 0 .5rem 1rem rgba(249, 250, 251, .5) !important; }
+  .text-shadow-dark { text-shadow: 0 .5rem 1rem rgba(53, 59, 65, .5) !important; }
+
+  .text-shadow-lg-primary { text-shadow: 0 1rem 3rem rgba(0, 123, 255, .5) !important; }
+  .text-shadow-lg-secondary { text-shadow: 0 1rem 3rem rgba(109, 118, 126, .5) !important; }
+  .text-shadow-lg-success { text-shadow: 0 1rem 3rem rgba(41, 168, 71, .5) !important; }
+  .text-shadow-lg-danger { text-shadow: 0 1rem 3rem rgba(220, 56, 72, .5) !important; }
+  .text-shadow-lg-warning { text-shadow: 0 1rem 3rem rgba(255, 193, 5, .5) !important; }
+  .text-shadow-lg-info { text-shadow: 0 1rem 3rem rgba(23, 164, 186, .5) !important; }
+  .text-shadow-lg-light { text-shadow: 0 1rem 3rem rgba(249, 250, 251, .5) !important; }
+  .text-shadow-lg-dark { text-shadow: 0 1rem 3rem rgba(53, 59, 65, .5) !important; }
+
+  .shadow-sm-primary { box-shadow: 0 .125rem .25rem rgba(0, 123, 255, .5) !important; }
+  .shadow-sm-secondary { box-shadow: 0 .125rem .25rem rgba(109, 118, 126, .5) !important; }
+  .shadow-sm-success { box-shadow: 0 .125rem .25rem rgba(41, 168, 71, .5) !important; }
+  .shadow-sm-danger { box-shadow: 0 .125rem .25rem rgba(220, 56, 72, .5) !important; }
+  .shadow-sm-warning { box-shadow: 0 .125rem .25rem rgba(255, 193, 5, .5) !important; }
+  .shadow-sm-info { box-shadow: 0 .125rem .25rem rgba(23, 164, 186, .5) !important; }
+  .shadow-sm-light { box-shadow: 0 .125rem .25rem rgba(249, 250, 251, .5) !important; }
+  .shadow-sm-dark { box-shadow: 0 .125rem .25rem rgba(53, 59, 65, .5) !important; }
+
+  .shadow-primary { box-shadow: 0 .5rem 1rem rgba(0, 123, 255, .5) !important; }
+  .shadow-secondary { box-shadow: 0 .5rem 1rem rgba(109, 118, 126, .5) !important; }
+  .shadow-success { box-shadow: 0 .5rem 1rem rgba(41, 168, 71, .5) !important; }
+  .shadow-danger { box-shadow: 0 .5rem 1rem rgba(220, 56, 72, .5) !important; }
+  .shadow-warning { box-shadow: 0 .5rem 1rem rgba(255, 193, 5, .5) !important; }
+  .shadow-info { box-shadow: 0 .5rem 1rem rgba(23, 164, 186, .5) !important; }
+  .shadow-light { box-shadow: 0 .5rem 1rem rgba(249, 250, 251, .5) !important; }
+  .shadow-dark { box-shadow: 0 .5rem 1rem rgba(53, 59, 65, .5) !important; }
+
+  .shadow-lg-primary { box-shadow: 0 1rem 3rem rgba(0, 123, 255, .5) !important; }
+  .shadow-lg-secondary { box-shadow: 0 1rem 3rem rgba(109, 118, 126, .5) !important; }
+  .shadow-lg-success { box-shadow: 0 1rem 3rem rgba(41, 168, 71, .5) !important; }
+  .shadow-lg-danger { box-shadow: 0 1rem 3rem rgba(220, 56, 72, .5) !important; }
+  .shadow-lg-warning { box-shadow: 0 1rem 3rem rgba(255, 193, 5, .5) !important; }
+  .shadow-lg-info { box-shadow: 0 1rem 3rem rgba(23, 164, 186, .5) !important; }
+  .shadow-lg-light { box-shadow: 0 1rem 3rem rgba(249, 250, 251, .5) !important; }
+  .shadow-lg-dark { box-shadow: 0 1rem 3rem rgba(53, 59, 65, .5) !important; }
+}
