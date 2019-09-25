@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3c8abb8cc54deb5849526e71e2ed7efe",
+    "revision": "2cbe76580f67db5397b72758c411474b",
     "url": "/puzzle-bingo339/index.html"
   },
   {
-    "revision": "12b257de7bd03b45cbde",
+    "revision": "b804f3287091060f8da8",
     "url": "/puzzle-bingo339/static/css/main.c695be46.chunk.css"
   },
   {
-    "revision": "16e2cfad08486162b757",
-    "url": "/puzzle-bingo339/static/js/2.76b09eea.chunk.js"
+    "revision": "ff9e457d3f15f444c15c",
+    "url": "/puzzle-bingo339/static/js/2.71296fe9.chunk.js"
   },
   {
-    "revision": "c1c450d76ebf67024ef7",
-    "url": "/puzzle-bingo339/static/js/3.9ab8c788.chunk.js"
+    "revision": "a517b1b34c1bce6cff1f",
+    "url": "/puzzle-bingo339/static/js/3.b60bb382.chunk.js"
   },
   {
     "revision": "e45793a5d9a16e3897d2",
@@ -24,12 +24,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/puzzle-bingo339/static/js/5.94f84276.chunk.js"
   },
   {
-    "revision": "12b257de7bd03b45cbde",
-    "url": "/puzzle-bingo339/static/js/main.0ede07d0.chunk.js"
+    "revision": "b804f3287091060f8da8",
+    "url": "/puzzle-bingo339/static/js/main.08956aa0.chunk.js"
   },
   {
-    "revision": "1fa1fe7675af26cb3d75",
-    "url": "/puzzle-bingo339/static/js/runtime~main.51161b7e.js"
+    "revision": "e2a6cc42274eb1b92264",
+    "url": "/puzzle-bingo339/static/js/runtime~main.0a815d81.js"
   },
   {
     "revision": "674f50d287a8c48dc19ba404d20fe713",

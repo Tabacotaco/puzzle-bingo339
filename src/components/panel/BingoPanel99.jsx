@@ -39,7 +39,11 @@ export default function BingoPanel99() {
               <i className="fa fa-undo mr-2" />{ get('BTN_TO_MENU') }
             </button>
           </BsCol>
-        ) : (null)}
+        ) : (
+          <BsCol>
+            TEST
+          </BsCol>
+        )}
       </BsRow>
 
       <BsRow>
