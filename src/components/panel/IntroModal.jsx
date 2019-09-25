@@ -58,7 +58,10 @@ function useCustom({ setShow }) {
     onJoinGame: useCallback(() => dispatch({
       action    : 'JOIN_GAME',
       gameID    : gameID,
-      onSuccess : () => setShow(false),
+      onSuccess : () => {
+        setShow(false);
+        window.history.replaceState({}, document.title, '/puzzle-bingo339');
+      },
       onFail    : err => console.log(err)
     }), [ gameID, dispatch, setShow ])
   };
