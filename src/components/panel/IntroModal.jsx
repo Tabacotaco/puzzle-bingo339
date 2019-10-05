@@ -16,7 +16,7 @@ import '../../assets/css/IntroModal.scss';
 
 function useGameID(dispatch) {
   return useChange(
-    useState(new URL(window.location.href).searchParams.get('gameID').replace('#/', '') || ''),
+    useState((new URL(window.location.href).searchParams.get('gameID') || '').replace('#/', '')),
     useCallback(id => !id ? 'MSG_REQUIRED_GAME_ID' : new Promise(resolve => dispatch({
       action: 'SEARCH_GAME',
       gameID: id,
