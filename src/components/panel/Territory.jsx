@@ -6,7 +6,7 @@ import { useCurrentRound } from '../../services/custom/game';
 import { BsContainer, BsRow, BsCol } from '../bs/Grid';
 import GameStep from './GameStep';
 
-import '../../assets/css/BingoPanel99.scss';
+import '../../assets/css/Territory.scss';
 
 
 // TODO: Custom Functions
@@ -32,13 +32,13 @@ function useCustom() {
 
 
 // TODO: Component
-export default function BingoPanel99() {
+export default function Territory() {
   const { zones, isMyTurn, isSelecting, onBackToMenu, onTipVisibledChange, onSelectNumber } = useCustom();
 
   console.log(isMyTurn);
 
   return (
-    <BsContainer className="bingo-99 text-white">
+    <BsContainer className="territory text-white">
       <GameStep {...{
         onTipVisibledChange,
         onCancelWaiting: onBackToMenu

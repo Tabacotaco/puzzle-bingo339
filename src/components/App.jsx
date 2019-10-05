@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { BsContainer, BsRow, BsCol } from './bs/Grid';
 
 import IntroModal from './panel/IntroModal';
-import BingoPanel99 from './panel/BingoPanel99';
+import Territory from './panel/Territory';
 
 
 // TODO: Component
@@ -17,7 +17,7 @@ export default function App() {
       <BsContainer padding={ 0 }>
         <BsRow>
           <BsCol padding={ 0 }>
-            <BingoPanel99 />
+            <Territory />
           </BsCol>
         </BsRow>
       </BsContainer>
