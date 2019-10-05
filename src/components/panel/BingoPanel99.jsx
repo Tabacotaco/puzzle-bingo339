@@ -1,29 +1,30 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { useGame } from '../../services/game';
+import { useCurrentRound } from '../../services/custom/game';
 
 import { BsContainer, BsRow, BsCol } from '../bs/Grid';
-import GameTip from './GameTip';
+import GameStep from './GameStep';
 
-import './BingoPanel99.scss';
+import '../../assets/css/BingoPanel99.scss';
 
 
 // TODO: Custom Functions
 function useCustom() {
-  const { zones, userID, status, rounds, dispatch } = useGame();
-  const { caller, step = 0, card } = rounds[rounds.length - 1] || {};
+  const { zones, userID, dispatch } = useGame();
+  const { caller } = useCurrentRound();
+
   const isMyTurn = useMemo(() => caller === userID, [ caller, userID ]);
+  const [ isSelecting, setSelecting ] = useState(false);
 
   return {
-    status,
-    step,
-    card,
     zones,
     isMyTurn,
+    isSelecting,
 
     onBackToMenu: useCallback(() => window.location.reload(), []),
 
-    onGetCard: useCallback(() => dispatch({ step: step + 1 }), [ step, dispatch ]),
+    onTipVisibledChange: useCallback(isShown => setSelecting(isShown), [ setSelecting ]),
 
     onSelectNumber: useCallback(num => () => { console.log(num, dispatch); }, [ dispatch ])
   };
@@ -32,16 +33,14 @@ function useCustom() {
 
 // TODO: Component
 export default function BingoPanel99() {
-  const { status, step, card, zones, isMyTurn, onBackToMenu, onGetCard, onSelectNumber } = useCustom();
-  const isNumberSelecting = useMemo(() => isMyTurn && step === 3, [ isMyTurn, step ]);
+  const { zones, isMyTurn, isSelecting, onBackToMenu, onTipVisibledChange, onSelectNumber } = useCustom();
+
+  console.log(isMyTurn);
 
   return (
     <BsContainer className="bingo-99 text-white">
-      <GameTip {...{
-        status,
-        step,
-        card,
-        onGetCard,
+      <GameStep {...{
+        onTipVisibledChange,
         onCancelWaiting: onBackToMenu
       }} />
 
@@ -50,15 +49,15 @@ export default function BingoPanel99() {
           <BsRow align="center">
             { Object.keys(zones).map(zone => ({ ...zones[zone], zone })).map(({ zone, numbers, color }) => (
               <BsCol key={`zone-${ zone }`} className={`container zone zone-${ zone }`} padding={ 0 } margin={ 0 } width={ 4 } border rounded>
-                <BsRow margin={ 1 } options={{ style: { background: color, opacity: isNumberSelecting ? 1 : .6 }}}>
+                <BsRow margin={ 1 } options={{ style: { background: color, opacity: isSelecting ? 1 : .6 }}}>
                   { numbers.map(num => (
                     <BsCol rounded border {...{
                       key       : `number-${ num }`,
-                      tagName   : isNumberSelecting ? 'button' : 'div',
+                      tagName   : isSelecting ? 'button' : 'div',
                       className : 'bingo-number text-center',
                       width     : 4,
                       padding   : 0,
-                      ...(isNumberSelecting ? { onClick: onSelectNumber(num) } : {})
+                      ...(isSelecting ? { onClick: onSelectNumber(num) } : {})
                     }}>
                       { num }
                     </BsCol>

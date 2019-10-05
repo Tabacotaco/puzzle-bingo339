@@ -1,0 +1,9 @@
+div.card.card-info {
+  & > img.card-img-top {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0), white, rgba(0, 0, 0, 0)) !important;
+  }
+
+  & > div.card-body {
+    overflow-y: auto;
+  }
+}

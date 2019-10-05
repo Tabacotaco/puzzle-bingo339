@@ -1,13 +1,4 @@
-div.modal-tip {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, .5);
-  z-index: 99;
-
+div.step-modal {
   // TODO: 置中訊息
   & > div.center-message {
     position: fixed;
@@ -39,14 +30,6 @@ div.modal-tip {
   & > div.card.card-info {
     margin: 5vh 2.5vh;
     width: 280px;
-
-    & > img.card-img-top {
-      background: linear-gradient(0deg, rgba(0, 0, 0, 0), white, rgba(0, 0, 0, 0)) !important;
-    }
-
-    & > div.card-body {
-      overflow-y: auto;
-    }
   }
 }
 

@@ -75,6 +75,23 @@ BsCardBody.propTypes = {
   colors  : PropTypes.oneOfType([ PropTypes.oneOf([ false ]), BsContainerColor ])
 };
 
+export const BsCardFooter = props => BsCardExtends({
+  ...props,
+  name      : 'card-footer rounded-bottom',
+  className : getContainerClasses('block', props)
+});
+
+BsCardFooter.defaultProps = { tagName: 'div' };
+BsCardFooter.propTypes = {
+  ...defaultPropTypes,
+
+  margin  : BsMargin,
+  padding : BsPadding,
+  border  : BsBorder,
+  rounded : BsRounded,
+  colors  : PropTypes.oneOfType([ PropTypes.oneOf([ false ]), BsContainerColor ])
+};
+
 
 // TODO: Card Panel
 function useCustomCard(image) {

@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { useI18n } from '../../services/i18n';
 import { useGame } from '../../services/game';
 
-import { useChange, useCancelEvent, isInvalidDisabled } from '../custom/events';
+import { useChange, useCancelEvent, isInvalidDisabled } from '../../services/custom/events';
 
 import BsModal from '../bs/Modal';
 import BsCollapse from '../bs/Collapse';
 import { BsContainer, BsRow, BsCol } from '../bs/Grid';
 
 import logo from '../../assets/imgs/logo-bingo.png';
-import './IntroModal.scss';
+import '../../assets/css/IntroModal.scss';
 
 
 function useGameID(dispatch) {

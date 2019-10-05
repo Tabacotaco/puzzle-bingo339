@@ -14,7 +14,7 @@ const convert2Action = params => 'object' === typeof params ? params : { action:
 const listenerFn = dispatch => ({ gameID, type, value }) => dispatch({
   [ 'rounds' === type ? 'round' : type ]: value,
   gameID,
-  status: 'competitor' === type ? 'PLAYING' : 'NONE'
+  ...('competitor' === type ? { status: 'PLAYING' } : {})
 });
 
 const doResponse = ({ dispatch }, { onSuccess = emptyFn, onFail = emptyFn }, params) => ({ status, content }) => {

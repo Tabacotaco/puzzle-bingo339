@@ -9,6 +9,7 @@
 
   "BTN_TO_MENU": "回選單",
   "BTN_GET_CARD": "取得卡片",
+  "BTN_USE_CARD": "使用",
 
   "CARD_TITLE_FOR_ATTACK": "取得了 [攻擊類型] 的卡片",
   "CARD_TITLE_FOR_DEFENSE": "取得了 [防禦類型] 的卡片",
