@@ -135,21 +135,10 @@ export const BsColOrder = PropTypes.oneOfType([
 ]);
 
 
-// TODO: Bootstrap Children
-export const BsChildren = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.number,
-  PropTypes.bool,
-  PropTypes.element,
-  PropTypes.elementType,
-  PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.bool,
-    PropTypes.element,
-    PropTypes.elementType
-  ]))
-]).isRequired;
+// TODO: Bootstrap Tag Name & Children
+export const BsTagName = PropTypes.oneOfType([ PropTypes.string, PropTypes.elementType ]);
+
+export const BsChildren = PropTypes.any.isRequired;
 
 
 // TODO: Button Code

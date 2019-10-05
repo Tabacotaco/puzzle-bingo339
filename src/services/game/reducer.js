@@ -1,90 +1,103 @@
+import CamelCase from 'camelcase';
+
 import GameBase from './firebase';
+
+import { COLORS } from '../../assets/config/zone-colors.json';
+import { CARDS } from '../../assets/config/chance-cards.json'; 
 
 
 // TODO: Basic && Functions
-const ZoneColors = [
-  'linear-gradient(135deg, #343a40, #007bff, #20c997)',
-  'linear-gradient(180deg, #007bff, #20c997)',
-  'linear-gradient(225deg, #343a40, #007bff, #20c997)',
-  'linear-gradient(90deg, #007bff, #20c997)',
-  '#20c997',
-  'linear-gradient(270deg, #007bff, #20c997)',
-  'linear-gradient(45deg, #343a40, #007bff, #20c997)',
-  'linear-gradient(0deg, #007bff, #20c997)',
-  'linear-gradient(315deg, #343a40, #007bff, #20c997)',
+const emptyFn = () => {};
 
-  // { bg: '#20c997', text: '#fff' },
-  // { bg: '#fd7e14', text: '#fff' },
-  // { bg: '#e83e8c', text: '#fff' },
-  // { bg: '#6610f2', text: '#fff' },
-  // { bg: '#6c757d', text: '#fff' },
-  // { bg: '#ffc107', text: '#fff' },
-  // { bg: '#dc3545', text: '#fff' },
-  // { bg: '#28a745', text: '#fff' },
-  // { bg: '#007bff', text: '#fff' }
-];
+const convert2Action = params => 'object' === typeof params ? params : { action: params };
 
-function emptyFn() {}
+const listenerFn = dispatch => ({ gameID, type, value }) => dispatch({
+  [ 'rounds' === type ? 'round' : type ]: value,
+  gameID,
+  status: 'competitor' === type ? 'PLAYING' : 'NONE'
+});
 
-function convert2Action(params) {
-  return 'object' === typeof params ? params : { action: params };
-}
+const doResponse = ({ dispatch }, { onSuccess = emptyFn, onFail = emptyFn }, params) => ({ status, content }) => {
+  if (status !== 200)
+    onFail(params || content)
+  else {
+    dispatch(params || content);
+    onSuccess(params || content);
+  }
+};
 
-function listenerFn(dispatch) {
-  return ({ gameID, type, value }) => dispatch({
-    [ type ]: value,
-    gameID,
-    status: 'competitor' === type ? 'PLAYING' : null
-  });
-}
+const getRounds = ({ userID = '', rounds }, newRound, step) => {
+  const isMyTurn = (newRound || rounds[rounds.length - 1] || {}).caller === userID;
 
-function doResponse({ dispatch }, { onSuccess = emptyFn, onFail = emptyFn }, params) {
-  return ({ status, content }) => {
-    if (status !== 200)
-      onFail(params || content)
-    else {
-      dispatch(params || content);
-      onSuccess(params || content);
+  if (newRound) return [ ...rounds, !isMyTurn ? newRound : {
+    ...newRound,
+    step: 1,
+    card: getCard(Math.floor(rounds.length / 2))
+  }];
+  return !isMyTurn || (!step && step !== 0) ? rounds : [ ...rounds.slice(0, rounds.length - 1), {
+    ...rounds[ rounds.length - 1 ],
+    step
+  }]
+};
+
+const getNumbers = () => {
+  const nums = [];
+
+  while (nums.length < 81)
+    nums.push(nums.length + 1);
+
+  return nums.sort(() => Math.round(Math.random() * 12) % 3 - 2).map((num, i) => ({
+    num,
+    zone: Math.floor(i / 9)
+  })).reduce((res, { num, zone }) => ({
+    ...res,
+    [ zone ]: {
+      color: COLORS[ zone ],
+      numbers: [ ...(res[ zone ] || { numbers: []}).numbers, num ]
     }
-  };
-}
+  }), {});
+};
+
+export const getCards = () => CARDS.map(card => Object.keys(card).reduce(
+  (ccResult, name) => ({ ...ccResult, [ CamelCase(name) ]: card[name] }), {}
+));
+
+const getCard = (() => {
+  const cards = getCards().reduce((list, { description, type, rangeX, rangeY, count }) => {
+    const i = list.length + count;
+
+    while (list.length < i) list.push({
+      description, type, rangeX, rangeY
+    });
+    return list;
+  }, []).sort(() => Math.round(Math.random() * 12) % 3 - 2);
+
+  return i => cards[i];
+})();
 
 
 // TODO: Reducers
 export function StateReducer(state, {
-  gameID     = state.gameID     , userID = state.userID,
-  owner      = state.owner      , status,
-  competitor = state.competitor , msg,
-  bingoNums  = state.bingoNums  , rounds
+  gameID      = state.gameID      , status ,
+  userID      = state.userID      , msg    ,
+  owner       = state.owner       , round  ,
+  competitor  = state.competitor  , step   ,
+  zones = state.zones
 }) {
   return {
-    userID     , status : status || state.status,
-    gameID     , msg    : msg ? [ ...state.msg, msg ] : state.msg,
-    owner      , rounds : rounds ? [ ...state.rounds, rounds ] : state.rounds,
-    competitor , 
-    bingoNums  : status !== 'PLAYING' || status === state.status ? bingoNums : (() => {
-      const nums = [];
+    gameID , userID     ,
+    owner  , competitor , 
 
-      while (nums.length < 81)
-        nums.push(nums.length + 1);
-
-      return nums.sort(() => Math.round(Math.random() * 12) % 3 - 2).map((num, i) => ({
-        num,
-        zone: Math.floor(i / 9)
-      })).reduce((res, { num, zone }) => ({
-        ...res,
-        [ zone ]: {
-          color: ZoneColors[ zone ],
-          numbers: [ ...(res[ zone ] || { numbers: []}).numbers, num ]
-        }
-      }), {});
-    })()
+    msg    : msg ? [ ...state.msg, msg ] : state.msg,
+    status : status || state.status,
+    rounds : getRounds(state, round, step),
+    zones  : status !== 'PLAYING' || status === state.status ? zones : getNumbers()
   };
 };
 
 export function ActionReducer(state, params) {
   const { dispatch } = state;
-  const { action, gameID, msg /*, rounds */ } = convert2Action(params);
+  const { action, gameID, msg, step } = convert2Action(params);
 
   switch (action) {
     case 'DESTROY_GAME':
@@ -109,8 +122,12 @@ export function ActionReducer(state, params) {
 
     case 'CALL_NUMBER':
       
-
+      break;
     default:
+      if ((step !== 0 && !step && isNaN(step)) || step < 0 || step > 3) throw new Error(
+        `The step number is wrong(${ step }).`
+      );
+      dispatch({ step });
   }
   return state;
 };

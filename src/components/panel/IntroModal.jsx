@@ -10,7 +10,7 @@ import BsModal from '../bs/Modal';
 import BsCollapse from '../bs/Collapse';
 import { BsContainer, BsRow, BsCol } from '../bs/Grid';
 
-import logo from '../../assets/imgs/bingo-512.png';
+import logo from '../../assets/imgs/logo-bingo.png';
 import './IntroModal.scss';
 
 

@@ -18,6 +18,35 @@ body {
     transition: opacity .15s linear;
   }
 
+  // TODO: Colors
+  .bg-primary { background: rgb(0, 123, 255) !important; }
+  .bg-secondary { background: rgb(109, 118, 126) !important; }
+  .bg-success { background: rgb(41, 168, 71) !important; }
+  .bg-danger { background: rgb(220, 56, 72) !important; }
+  .bg-warning { background: rgb(255, 193, 5) !important; }
+  .bg-info { background: rgb(23, 164, 186) !important; }
+  .bg-light { background: rgb(249, 250, 251) !important; }
+  .bg-dark { background: rgb(53, 59, 65) !important; }
+  .bg-indigo { background: rgb(104, 18, 243) !important; }
+  .bg-purple { background: rgb(111, 66, 194) !important; }
+  .bg-pink { background: rgb(233, 63, 142) !important; }
+  .bg-orange { background: rgb(253, 126, 23) !important; }
+  .bg-teal { background: rgb(32, 203, 152) !important; }
+
+  .bg-opacity-primary { background: rgba(0, 123, 255, .5) !important; }
+  .bg-opacity-secondary { background: rgba(109, 118, 126, .5) !important; }
+  .bg-opacity-success { background: rgba(41, 168, 71, .5) !important; }
+  .bg-opacity-danger { background: rgba(220, 56, 72, .5) !important; }
+  .bg-opacity-warning { background: rgba(255, 193, 5, .5) !important; }
+  .bg-opacity-info { background: rgba(23, 164, 186, .5) !important; }
+  .bg-opacity-light { background: rgba(249, 250, 251, .5) !important; }
+  .bg-opacity-dark { background: rgba(53, 59, 65, .5) !important; }
+  .bg-opacity-indigo { background: rgba(104, 18, 243, .5) !important; }
+  .bg-opacity-purple { background: rgba(111, 66, 194, .5) !important; }
+  .bg-opacity-pink { background: rgba(233, 63, 142, .5) !important; }
+  .bg-opacity-orange { background: rgba(253, 126, 23, .5) !important; }
+  .bg-opacity-teal { background: rgba(32, 203, 152, .5) !important; }
+
   // TODO: Shadow
   .text-shadow-sm-primary { text-shadow: 0 .125rem .25rem rgba(0, 123, 255, .5) !important; }
   .text-shadow-sm-secondary { text-shadow: 0 .125rem .25rem rgba(109, 118, 126, .5) !important; }
@@ -72,4 +101,8 @@ body {
   .shadow-lg-info { box-shadow: 0 1rem 3rem rgba(23, 164, 186, .5) !important; }
   .shadow-lg-light { box-shadow: 0 1rem 3rem rgba(249, 250, 251, .5) !important; }
   .shadow-lg-dark { box-shadow: 0 1rem 3rem rgba(53, 59, 65, .5) !important; }
+
+  div.card > div.card-header {
+    order: -1 !important;
+  }
 }

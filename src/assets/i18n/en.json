@@ -10,6 +10,26 @@
   "BTN_TO_MENU": "Back To Menu",
   "BTN_GET_CARD": "Get Card",
 
+  "CARD_TITLE_FOR_ATTACK": "You got a [Attack Card]",
+  "CARD_TITLE_FOR_DEFENSE": "You got a [Defense Card]",
+  "CARD_LABEL_COUNT": "Count",
+  "CARD_LABEL_RANGE": "Effect Range",
+  "CARD_LABEL_DESC": "Description",
+  "CARD_NAME_ATTACK_BOMB": "Catapult",
+  "CARD_NAME_ATTACK_FOG": "Poison Fog",
+  "CARD_NAME_ATTACK_LOCK": "Seize",
+  "CARD_NAME_DEFENSE_BOMB": "Strengthening",
+  "CARD_NAME_DEFENSE_FOG": "Tarnado",
+  "CARD_NAME_DEFENSE_LOCK": "Guard",
+  "CARD_NAME_DEFENSE_MIRROR": "Reflection Mirror",
+  "CARD_DESC_ATTACK_BOMB": "Use catapult to destroy your competitor's building on the specific territories, and that will make your competitor to spend one round to re-build at least.  If the specific target is a space, this attack will be ineffective.",
+  "CARD_DESC_ATTACK_FOG": "Fog with poison, and your competitor can't see anything on the specific territories.  If your competitor still try to build, this effect maybe could waste his/her one round.",
+  "CARD_DESC_ATTACK_LOCK": "Dispatch the thieves to occupy the space, and your competitor can't build anything on the occupied space.  If there have been any building, the thieves can't occupy successfully.",
+  "CARD_DESC_DEFENSE_BOMB": "Upgrade to the stone building.  This effect could make the attack from the catapult be ineffective.",
+  "CARD_DESC_DEFENSE_FOG": "Summon the tarnado to blow off the poison fog, and you can see the territories again.",
+  "CARD_DESC_DEFENSE_LOCK": "Dispatch the guards to expel the thieves, and you can build after the expelling.",
+  "CARD_DESC_DEFENSE_MIRROR": "Set up the mirror to reflect all the attack-effect from your competitor.",
+
   "MSG_REQUEST_ERROR": "System Error.",
   "MSG_REQUIRED_GAME_ID": "Please input the game ID.",
   "MSG_INVALID_VALUE": "Invalid value.",
@@ -17,5 +37,5 @@
   "MSG_UNALLOWED_VISIT": "Unallowed to visit the game room.",
   "MSG_PLAYER_DUPLICATED": "You've been in the game room already.",
   "MSG_WAITING_COMPETITOR": "Waiting for the competitor, and you can switch the number zone right now...",
-  "MSG_IS_MY_TURN_1": "It's your turn right now, and the game will give you a random card (for attack / defense)."
+  "MSG_STEP_GET_CARD": "It's your turn right now, and the game will give you a random card (for attack / defense)."
 }

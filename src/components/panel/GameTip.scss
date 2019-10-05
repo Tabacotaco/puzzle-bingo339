@@ -1,0 +1,63 @@
+div.modal-tip {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, .5);
+  z-index: 99;
+
+  // TODO: 置中訊息
+  & > div.center-message {
+    position: fixed;
+    top: 30vh;
+    left: 0;
+    width: 100vw;
+    max-width: none !important;
+    z-index: 100;
+
+    div.tip-content {
+      font-size: 2rem;
+
+      & > i.tip-icon {
+        margin-top: .5rem;
+  
+        &.rotate {
+          animation: game-tip-icon-rotate infinite 2s linear;
+        }
+      }
+  
+      & > span.waiting::after {
+        content: "";
+        animation: game-tip-waiting infinite 2s linear;
+      }
+    }
+  }
+
+  // TODO: 卡片資訊
+  & > div.card.card-info {
+    margin: 5vh 2.5vh;
+    width: 280px;
+
+    & > img.card-img-top {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0), white, rgba(0, 0, 0, 0)) !important;
+    }
+
+    & > div.card-body {
+      overflow-y: auto;
+    }
+  }
+}
+
+@keyframes game-tip-icon-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes game-tip-waiting {
+  0% { content: ""; }
+  33% { content: " ."; }
+  66% { content: " .."; }
+  100% { content: " ..."; }
+}

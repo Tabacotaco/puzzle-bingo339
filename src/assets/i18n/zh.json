@@ -10,6 +10,26 @@
   "BTN_TO_MENU": "回選單",
   "BTN_GET_CARD": "取得卡片",
 
+  "CARD_TITLE_FOR_ATTACK": "取得了 [攻擊類型] 的卡片",
+  "CARD_TITLE_FOR_DEFENSE": "取得了 [防禦類型] 的卡片",
+  "CARD_LABEL_COUNT": "可取得次數",
+  "CARD_LABEL_RANGE": "效果範圍",
+  "CARD_LABEL_DESC": "說明",
+  "CARD_NAME_ATTACK_BOMB": "投石器",
+  "CARD_NAME_ATTACK_FOG": "毒霧",
+  "CARD_NAME_ATTACK_LOCK": "佔領",
+  "CARD_NAME_DEFENSE_BOMB": "強化建材",
+  "CARD_NAME_DEFENSE_FOG": "龍捲風",
+  "CARD_NAME_DEFENSE_LOCK": "守衛",
+  "CARD_NAME_DEFENSE_MIRROR": "反射盾",
+  "CARD_DESC_ATTACK_BOMB": "使用投石器可在對手領地內進行指定的範圍攻擊，攻擊後可摧毀範圍內的房屋，可造成對手必須多耗費一回合重新建造房屋；若攻擊目標為空地，則等同無效攻擊。",
+  "CARD_DESC_ATTACK_FOG": "於對手領地內製造毒霧，蒙蔽其視線。在毒霧影響的範圍內，對手無法看到土地是否建造過房屋，當對手仍對毒霧區塊進行建造，可能會白白損失一回合。",
+  "CARD_DESC_ATTACK_LOCK": "派遣盜賊佔領空地，讓對手無法在影響範圍內建造房屋。若指定區塊已有房屋，則盜賊將無法佔領。",
+  "CARD_DESC_DEFENSE_BOMB": "石屋改造，可加強一般木屋的防禦能力，以抵禦未來可能來自於對手投石器的攻擊。",
+  "CARD_DESC_DEFENSE_FOG": "召喚龍捲風以吹散毒霧造成之遮蔽效果。",
+  "CARD_DESC_DEFENSE_LOCK": "派遣守衛前往驅逐盜賊，之後便可在驅逐後的空地上建造房屋。",
+  "CARD_DESC_DEFENSE_MIRROR": "架設反射盾以反彈對手的任何攻擊效果。",
+
   "MSG_REQUEST_ERROR": "系統錯誤.",
   "MSG_REQUIRED_GAME_ID": "請輸入遊戲序號.",
   "MSG_INVALID_VALUE": "不正確的資料值.",
@@ -17,5 +37,5 @@
   "MSG_UNALLOWED_VISIT": "無法加入指定的遊戲室, 請變更遊戲序號.",
   "MSG_PLAYER_DUPLICATED": "你已經在遊戲室中, 無法再次加入.",
   "MSG_WAITING_COMPETITOR": "等待對手選擇號碼, 等待期間可任意調整數字區域...",
-  "MSG_IS_MY_TURN_1": "現在是你的回合, 遊戲將會發放一張隨機攻擊 / 防禦卡片給你對戰應用."
+  "MSG_STEP_GET_CARD": "現在是你的回合, 遊戲將會發放一張隨機攻擊 / 防禦卡片給你對戰應用."
 }

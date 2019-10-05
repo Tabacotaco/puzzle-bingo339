@@ -14,9 +14,9 @@ export default function App() {
     <div className="puzzle-bingo p-3">
       <IntroModal show={ show } />
 
-      <BsContainer>
+      <BsContainer padding={ 0 }>
         <BsRow>
-          <BsCol>
+          <BsCol padding={ 0 }>
             <BingoPanel99 />
           </BsCol>
         </BsRow>

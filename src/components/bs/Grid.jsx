@@ -5,6 +5,7 @@ import { uniqueArray, getBsClass, getContainerClasses } from './options.fn';
 
 import {
   BsContainerColor,
+  BsTagName,
   BsChildren,
   BreakPoint,
   BsMargin,
@@ -19,15 +20,14 @@ import {
 
 
 // TODO: Container
-export const BsContainer = props => createElement(
-  props.tagName || 'div',
-  { ...(props.options || {}), className: `container ${ getContainerClasses('block', props) }` },
-  props.children
-);
+export const BsContainer = props => createElement(props.tagName || 'div', {
+  ...(props.options || {}),
+  className: `container ${ getContainerClasses('block', props) }`
+}, props.children);
 
 BsContainer.propTypes = {
   children  : BsChildren,
-  tagName   : PropTypes.string,
+  tagName   : BsTagName,
   className : PropTypes.string,
 
   margin  : BsMargin,
@@ -41,20 +41,17 @@ BsContainer.propTypes = {
 
 
 // TODO: Row
-export const BsRow = props => createElement(
-  props.tagName || 'div', {
-    ...(props.options || {}),
-    className: `row ${ getContainerClasses('flex', props) } ${ uniqueArray([
-      (props.gutters || true) === true ? '' : 'no-gutters',
-      (props.align || false) === false ? '' : `justify-content-${ getBsClass({ size: props.alignable, end: props.align }) }`
-    ]).join(' ')}`
-  },
-  props.children
-);
+export const BsRow = props => createElement(props.tagName || 'div', {
+  ...(props.options || {}),
+  className: `row ${ getContainerClasses('flex', props) } ${ uniqueArray([
+    (props.gutters || true) === true ? '' : 'no-gutters',
+    (props.align || false) === false ? '' : `justify-content-${ getBsClass({ size: props.alignable, end: props.align }) }`
+  ]).join(' ')}`
+}, props.children);
 
 BsRow.propTypes = {
   children  : BsChildren,
-  tagName   : PropTypes.string,
+  tagName   : BsTagName,
   className : PropTypes.string,
 
   margin  : BsMargin,
@@ -96,17 +93,14 @@ function getColClasses({ width = 'auto', offset = false, order = false }) {
   }, []);
 }
 
-export const BsCol = props => createElement(
-  props.tagName || 'div', {
-    ...(props.options || {}),
-    className: `${ getContainerClasses('block', props) } ${ uniqueArray(['col', ...getColClasses(props)]).join(' ')}`
-  },
-  props.children
-);
+export const BsCol = props => createElement(props.tagName || 'div', {
+  ...(props.options || {}),
+  className: `${ getContainerClasses('block', props) } ${ uniqueArray(['col', ...getColClasses(props)]).join(' ')}`
+}, props.children);
 
 BsCol.propTypes = {
   children  : BsChildren,
-  tagName   : PropTypes.string,
+  tagName   : BsTagName,
   className : PropTypes.string,
 
   margin  : BsMargin,
