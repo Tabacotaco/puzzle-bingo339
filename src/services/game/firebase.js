@@ -57,6 +57,14 @@ function connectWS(gameRoom, doFn = () => {}) {
   gameRoom.child('rounds').on('child_added', snapshot =>
     doFn({ gameID: gameRoom.key, type: 'rounds', value: snapshot.val() })
   );
+
+  gameRoom.child('attacks').on('child_added', snapshot =>
+    snapshot.val().launcher === getUserUID() ? null : doFn({
+      gameID : gameRoom.key,
+      type   : 'attacks',
+      value  : snapshot.val()
+    })
+  )
 }
 
 
@@ -107,6 +115,17 @@ export default {
         .then(() => ({ status: 200, content: { ...values, userID: getUserUID() }}));
     })
     .catch(err => ({ status: 500, content: err.message })),
+
+  // TODO: Launch an attack to the competitor
+  doLaunchAttack: (key, { type, description, ranges }) => new Promise((resolve, reject) =>
+    getRoom(key, getUserUID())
+      .then(snapshot => snapshot.ref.child('attacks').push({ launcher: getUserUID(), type, description, ranges }))
+      .then(attack => attack.once('child_changed', snapshot => resolve({
+        status: 200,
+        content: { attack: { ...snapshot.val(), uid: attack.key }}
+      })))
+      .catch(err => reject({ status: 500, content: err.message }))
+  ),
 
   // TODO: Send messages
   doSendMessage: (key, msg) => getRoom(key, getUserUID())

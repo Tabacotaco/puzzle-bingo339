@@ -1,12 +1,14 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useI18n } from '../../services/i18n';
-import { useGame } from '../../services/game';
+import { useGame, useAttackRange } from '../../services/game';
 import { useCurrentRound } from '../../services/custom/game';
 
 import BsCard, { BsCardHeader, BsCardBody, BsCardFooter, BsCardTitle, BsCardText } from '../bs/Card';
 import { BsContainer, BsRow, BsCol } from '../bs/Grid';
+
+import Territories from './Territories';
 
 import attack_bomb from '../../assets/imgs/attack-bomb.png';
 import attack_fog from '../../assets/imgs/attack-fog.png';
@@ -27,15 +29,44 @@ const imgs = {
   defense_mirror
 };
 
-function useCustomCard({ card, onUseCard }) {
+function useDashboard({ card }) {
+  const { gameID, dispatch } = useGame();
+  const [ image, setImage ] = useState();
+  const attackRange = useAttackRange(card);
+
+  return {
+    attackRange,
+    usingCardImage : image,
+
+    onGetCard      : useCallback(() => dispatch({ step: 2 }), [ dispatch ]),
+
+    onUseCard      : useCallback(({ img }) => {
+      dispatch({ step: 3 });
+      setImage(img);
+    }, [ dispatch ]),
+
+    doAttack       : useCallback(({ x, y, z }) => dispatch({
+      action : 'LAUNCH_ATTACK',
+      target : attackRange,
+      gameID, card, x, y, z,
+      onSuccess(content) {
+        console.log(content);
+      }
+    }), [ gameID, attackRange, card, dispatch ])
+  };
+}
+
+function useBingoCard({ card, onUseCard }) {
   const { rangeX: x, rangeY: y, ranges } = card;
 
   return {
     bgClass : useMemo(() => 'ATTACK' === card.type ? 'bg-teal' : 'bg-warning', [ card ]),
     ranges  : useMemo(() => !ranges ? [{ x, y }] : ranges, [ x, y, ranges ]),
 
-    doUseCard: useCallback(() => onUseCard(card), [ onUseCard, card ]),
-
+    doUseCard: useCallback(
+      () => onUseCard({ ...card, img: imgs[`${ card.type.toLowerCase() }_${ card.description.toLowerCase() }`] }),
+      [ onUseCard, card ]
+    ),
     getCardImage: useCallback(
       ({ description, type }) => imgs[`${ type.toLowerCase() }_${ description.toLowerCase() }`],
       []
@@ -43,15 +74,12 @@ function useCustomCard({ card, onUseCard }) {
   };
 }
 
+
 // TODO: Component - CardDashboard
 export function CardDashboard() {
   const { get } = useI18n();
-  const { dispatch } = useGame();
   const { step, card } = useCurrentRound();
-
-  const onGetCard = useCallback(() => dispatch({ step: 2 }), [ dispatch ]);
-  const onUseCard = useCallback(() => dispatch({ step: 3 }), [ dispatch ]);
-
+  const { attackRange, usingCardImage, onGetCard, onUseCard, doAttack } = useDashboard({ card });
 
   return step === 1 ? (
     <BsContainer className="center-message shadow-light" padding={ 3 } colors={{ bg: 'warning', text: 'dark' }}>
@@ -67,8 +95,20 @@ export function CardDashboard() {
         </BsCol>
       </BsRow>
     </BsContainer>
+
   ) : step === 2 ? (
     <BingoCard card={ card } onUseCard={ onUseCard } />
+
+  ) : step === 3 && 'ATTACK' === card.type ? (
+    <div className="competitor-territories">
+      <h3 className="text-center bg-warning text-dark font-weight-bolder mt-3 py-3">
+        { get('MSG_ATTACK_COMPETITOR') }
+      </h3>
+
+      <Territories isSelecting mode="attack" hoverOn={ attackRange } cursor={ usingCardImage }
+        onSelected={ doAttack } />
+    </div>
+
   ) : null;
 }
 
@@ -77,7 +117,7 @@ export function CardDashboard() {
 export default function BingoCard({ card, onUseCard = () => {} }) {
   const { get } = useI18n();
   const { type, description, count = 0 } = card;
-  const { bgClass, ranges, getCardImage, doUseCard } = useCustomCard({ card, onUseCard });
+  const { bgClass, ranges, getCardImage, doUseCard } = useBingoCard({ card, onUseCard });
 
   return (
     <BsCard className={`card-info text-dark ${ bgClass }`} image={ getCardImage(card) }>

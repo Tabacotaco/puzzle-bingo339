@@ -1,0 +1,17 @@
+div.playboard {
+  & > div.row > div.col > div.territories div.zone.container.col {
+    &.zone-bg-1 > div.row { background: linear-gradient(135deg, #343a40, #20A4F3, #FFC107); }
+    &.zone-bg-2 > div.row { background: linear-gradient(180deg, #20A4F3, #FFC107); }
+    &.zone-bg-3 > div.row { background: linear-gradient(225deg, #343a40, #20A4F3, #FFC107); }
+    &.zone-bg-4 > div.row { background: linear-gradient(90deg, #20A4F3, #FFC107); }
+    &.zone-bg-5 > div.row { background: radial-gradient(#28A745, #FFC107); }
+    &.zone-bg-6 > div.row { background: linear-gradient(270deg, #20A4F3, #FFC107); }
+    &.zone-bg-7 > div.row { background: linear-gradient(45deg, #343a40, #20A4F3, #FFC107); }
+    &.zone-bg-8 > div.row { background: linear-gradient(0deg, #20A4F3, #FFC107); }
+    &.zone-bg-9 > div.row { background: linear-gradient(315deg, #343a40, #20A4F3, #FFC107); }
+
+    .bingo-number:not(button) {
+      cursor: grab;
+    }
+  }
+}

@@ -1,3 +1,11 @@
+div.switching-step {
+  position: fixed;
+  bottom: 1rem;
+  left: 0;
+  width: 90vw;
+  margin: 0 5vw;
+}
+
 div.step-modal {
   // TODO: 置中訊息
   & > div.center-message {

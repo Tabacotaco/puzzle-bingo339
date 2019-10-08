@@ -1,0 +1,85 @@
+div.territories {
+  position: relative;
+  max-width: 80vh;
+
+  & > img.cursor {
+    position: fixed;
+    z-index: 200;
+    width: 2rem;
+    height: 2rem;
+    transform: translate(.5rem, .5rem);
+    pointer-events: none;
+  }
+
+  & > div.row > div.zone.container.col {
+    position: relative;
+    padding-top: 33.33333% !important;
+  
+    & > div.row {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      & > .bingo-number {
+        background: rgba(0, 0, 0, 0);
+        color: inherit;
+        height: 33.33333% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+      }
+    }
+  }
+
+  &.attack-cell > div.row > div.zone.container.col > div.row > .bingo-number:hover {
+    background: var(--danger) !important;
+    opacity: .8;
+  }
+
+  &.attack-line-x {
+    &[data-hover-x="0"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="0"],
+    &[data-hover-x="1"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="1"],
+    &[data-hover-x="2"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="2"],
+    &[data-hover-x="3"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="3"],
+    &[data-hover-x="4"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="4"],
+    &[data-hover-x="5"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="5"],
+    &[data-hover-x="6"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="6"],
+    &[data-hover-x="7"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="7"],
+    &[data-hover-x="8"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="8"] {
+      background: var(--danger) !important;
+      opacity: .8;
+    }
+  }
+
+  &.attack-line-y {
+    &[data-hover-y="0"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="0"],
+    &[data-hover-y="1"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="1"],
+    &[data-hover-y="2"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="2"],
+    &[data-hover-y="3"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="3"],
+    &[data-hover-y="4"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="4"],
+    &[data-hover-y="5"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="5"],
+    &[data-hover-y="6"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="6"],
+    &[data-hover-y="7"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="7"],
+    &[data-hover-y="8"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="8"] {
+      background: var(--danger) !important;
+      opacity: .8;
+    }
+  }
+
+  &.attack-zone {
+    &[data-hover-z="0"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="0"],
+    &[data-hover-z="1"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="1"],
+    &[data-hover-z="2"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="2"],
+    &[data-hover-z="3"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="3"],
+    &[data-hover-z="4"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="4"],
+    &[data-hover-z="5"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="5"],
+    &[data-hover-z="6"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="6"],
+    &[data-hover-z="7"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="7"],
+    &[data-hover-z="8"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="8"] {
+      background: var(--danger) !important;
+      opacity: .8;
+    }
+  }
+}

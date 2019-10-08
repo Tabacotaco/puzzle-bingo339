@@ -2,7 +2,6 @@ import CamelCase from 'camelcase';
 
 import GameBase from './firebase';
 
-import { COLORS } from '../../assets/config/zone-colors.json';
 import { CARDS } from '../../assets/config/chance-cards.json'; 
 
 
@@ -12,7 +11,7 @@ const emptyFn = () => {};
 const convert2Action = params => 'object' === typeof params ? params : { action: params };
 
 const listenerFn = dispatch => ({ gameID, type, value }) => dispatch({
-  [ 'rounds' === type ? 'round' : type ]: value,
+  [ 'rounds' === type ? 'round' : 'attacks' === type ? 'attack' : type ]: value,
   gameID,
   ...('competitor' === type ? { status: 'PLAYING' } : {})
 });
@@ -46,16 +45,20 @@ const getNumbers = () => {
   while (nums.length < 81)
     nums.push(nums.length + 1);
 
-  return nums.sort(() => Math.round(Math.random() * 12) % 3 - 2).map((num, i) => ({
-    num,
-    zone: Math.floor(i / 9)
-  })).reduce((res, { num, zone }) => ({
-    ...res,
-    [ zone ]: {
-      color: COLORS[ zone ],
-      numbers: [ ...(res[ zone ] || { numbers: []}).numbers, num ]
-    }
-  }), {});
+  return nums
+    .sort(() => Math.floor(Math.random() * 12) % 3 - 2)
+    .sort(() => Math.floor(Math.random() * 12) % 3 - 2)
+    .map((num, i) => ({
+      num,
+      zone: Math.floor(i / 9)
+    }))
+    .reduce((res, { num, zone }) => ({
+      ...res,
+      [ zone ]: {
+        bgClass: `zone-bg-${ zone + 1 }`,
+        numbers: [ ...(res[ zone ] || { numbers: []}).numbers, num ]
+      }
+    }), {});
 };
 
 export const getCards = () => CARDS.map(card => Object.keys(card).reduce(
@@ -70,10 +73,27 @@ const getCard = (() => {
       description, type, rangeX, rangeY
     });
     return list;
-  }, []).sort(() => Math.round(Math.random() * 12) % 3 - 2);
+  }, []).sort(() => Math.floor(Math.random() * 12) % 3 - 1).sort(() => Math.floor(Math.random() * 12) % 3 - 1);
 
   return i => cards[i];
 })();
+
+const getAttackParams = ({ target, x, y, z, card: { type, description }}) => {
+  switch (target) {
+    case 'zone'   : return { type, description, ranges: [{ z }] };
+    case 'cell'   : return { type, description, ranges: [{ x, y }] };
+    case 'line-x' : return { type, description, ranges: (ranges => {
+      while (ranges.length < 9) ranges.push({ x, y: ranges.length });
+      return ranges;
+    })([]) };
+    case 'line-y' : return { type, description, ranges: (ranges => {
+      while (ranges.length < 9) ranges.push({ y, x: ranges.length });
+      return ranges;
+    })([]) };
+    default:
+      throw new Error('Error target type, it must be "cell" / "line-x" / "line-y" / "zone".');
+  }
+};
 
 
 // TODO: Reducers
@@ -82,16 +102,17 @@ export function StateReducer(state, {
   userID      = state.userID      , msg    ,
   owner       = state.owner       , round  ,
   competitor  = state.competitor  , step   ,
-  zones = state.zones
+  zones       = state.zones       , attack
 }) {
   return {
     gameID , userID     ,
     owner  , competitor , 
 
-    msg    : msg ? [ ...state.msg, msg ] : state.msg,
-    status : status || state.status,
-    rounds : getRounds(state, round, step),
-    zones  : status !== 'PLAYING' || status === state.status ? zones : getNumbers()
+    msg     : msg ? [ ...state.msg, msg ] : state.msg,
+    attacks : attack ? [ ...state.attacks, attack ] : state.attacks,
+    status  : status || state.status,
+    rounds  : getRounds(state, round, step),
+    zones   : status !== 'PLAYING' || status === state.status ? zones : getNumbers()
   };
 };
 
@@ -120,8 +141,11 @@ export function ActionReducer(state, params) {
       GameBase.doSendMessage(gameID, msg).then(doResponse(state, params, { msg }));
       break;
 
+    case 'LAUNCH_ATTACK':
+      GameBase.doLaunchAttack(gameID, getAttackParams(params)).then(doResponse(state, params));
+      break;
+
     case 'CALL_NUMBER':
-      
       break;
     default:
       if ((step !== 0 && !step && isNaN(step)) || step < 0 || step > 3) throw new Error(

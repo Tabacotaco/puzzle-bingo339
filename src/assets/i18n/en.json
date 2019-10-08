@@ -1,9 +1,4 @@
 {
-  "WEBSIDE_TITLE": "Puzzle Bingo",
-  "GAME_TITLE_1": "Puzzle",
-  "GAME_TITLE_2": "Bingo",
-  "WELCOME_TO": "Welcome To",
-
   "NEW_GAME": "New Game",
   "JOIN_GAME": "Join To",
 
@@ -37,6 +32,7 @@
   "MSG_INVALID_GAME_ID": "Invalid game ID.",
   "MSG_UNALLOWED_VISIT": "Unallowed to visit the game room.",
   "MSG_PLAYER_DUPLICATED": "You've been in the game room already.",
-  "MSG_WAITING_COMPETITOR": "Waiting for the competitor, and you can switch the number zone right now...",
-  "MSG_STEP_GET_CARD": "It's your turn right now, and the game will give you a random card (for attack / defense)."
+  "MSG_WAITING_COMPETITOR": "Waiting for the competitor, and you can switch your territories right now.  By the way, maybe the competitor will attack your territories...",
+  "MSG_STEP_GET_CARD": "It's your turn right now, and the game will give you a random card (for attack / defense).",
+  "MSG_ATTACK_COMPETITOR": "Please specify the territories of the competitor to launch an attack..."
 }

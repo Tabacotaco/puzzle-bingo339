@@ -76,12 +76,12 @@ export default function IntroModal({ show: [ show, setShow ] }) {
       <BsCollapse isShow={ 'main' === expand }>
         <BsContainer className="intro-container" border rounded padding={{ x: 2, y: 5 }} colors={{ border: 'warning' }}>
           <h4 className="welcome-title text-center text-warning font-weight-light font-italic text-shadow-sm-light">
-            { get('WELCOME_TO') }
+            Welcome To
           </h4>
 
           <h1 className="text-center game-title my-5 text-shadow-sm-light font-weight-bolder">
-            <span className="title-head text-primary font-italic">{ get('GAME_TITLE_1') }</span>
-            <span className="title-body text-danger">{ get('GAME_TITLE_2') }</span>
+            <span className="title-head text-primary font-italic">Puzzle</span>
+            <span className="title-body text-danger">Bingo</span>
 
             <img alt="Logo" src={ logo } />
           </h1>

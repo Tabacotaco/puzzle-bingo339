@@ -17,7 +17,7 @@ function CenterMessage({ icon, children, onClose = () => {}}) {
   const { get } = useI18n();
 
   return (
-    <BsContainer className="center-message shadow-light" padding={ 3 } colors={{ bg: 'primary', text: 'white' }}>
+    <BsContainer className="center-message shadow-light" padding={ 3 } colors={{ bg: 'warning', text: 'dark' }}>
       <BsRow align="center" padding={{ x: 5 }}>
         <BsCol className="tip-content" width={{ def: 12, sm: 8, md: 4 }}>
           { !icon ? null : (
@@ -28,7 +28,7 @@ function CenterMessage({ icon, children, onClose = () => {}}) {
         </BsCol>
 
         <BsCol className="text-center" width={ 12 }>
-          <button type="button" className="btn btn-secondary mt-2" onClick={ onClose }>
+          <button type="button" className="btn btn-dark mt-2" onClick={ onClose }>
             <i className="fa fa-undo mr-2" />{ get('BTN_TO_MENU') }
           </button>
         </BsCol>
@@ -40,12 +40,14 @@ function CenterMessage({ icon, children, onClose = () => {}}) {
 
 // TODO: Main Component
 export default function GameStep({
-  onCancelWaiting = () => {},
+  onCancelWaiting  = () => {},
   onVisibledChange = () => {},
-  onGameFinish = () => {}
+  onGameFinish     = () => {}
 }) {
+  const { get } = useI18n();
   const { status } = useGame();
   const { step = 0, card = {} } = useCurrentRound();
+  const isSwitching = useMemo(() => 'PLAYING' === status && step === 0, [ status, step ]);
 
   const isVisibled = useMemo(
     () => [ 'WAITING', 'FINISH' ].indexOf(status) >= 0
@@ -55,7 +57,16 @@ export default function GameStep({
 
   useEffect(() => onVisibledChange(isVisibled));
 
-  return !isVisibled ? null : (
+  return isSwitching ? (
+    <BsContainer className="switching-step" padding={ 3 } margin={{ t: 3 }} rounded colors={{ bg: 'warning', text: 'dark' }}>
+      <BsRow align="center">
+        <BsCol>
+          { get('MSG_WAITING_COMPETITOR') }
+        </BsCol>
+      </BsRow>
+    </BsContainer>
+
+  ) : !isVisibled ? null : (
     <StepModal>
       {(() => {
         switch (status) {

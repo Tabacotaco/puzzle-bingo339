@@ -1,20 +1,25 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import React, { createContext, useMemo, useReducer, useContext } from 'react';
 
 import { StateReducer, ActionReducer, getCards } from './reducer';
 
 
 // TODO: Basic
 const defaultOptions = {
-  gameID     : '', status : 'NONE',
-  userID     : '', zones  : [],
-  owner      : '', rounds : [],
-  competitor : '', msg    : []
+  gameID     : ''     , zones   : {},
+  status     : 'NONE' , rounds  : [],
+  userID     : ''     , attacks : [],
+  owner      : ''     , msg     : [],
+  competitor : ''
 };
 
 // TODO: Components
 const GameContext = createContext({ ...defaultOptions, dispatch: () => {}});
 
 export function useGame() { return useContext(GameContext); }
+
+export const useAttackRange = card => useMemo(() => card.rangeX === 1 && card.rangeY === 1 ? 'cell'
+  : card.rangeX === 9 && card.rangeY === 1 ? 'line-y'
+    : card.rangeX === 1 && card.rangeY === 9 ? 'line-x' : 'zone', [ card ]);
 
 export const cards = getCards();
 

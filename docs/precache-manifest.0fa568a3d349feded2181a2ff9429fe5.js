@@ -1,43 +1,43 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "42701a0baaf5e701264bbd81614874c4",
+    "revision": "bf05950fb8fa5e7d35ae80464a95b431",
     "url": "/puzzle-bingo339/index.html"
   },
   {
-    "revision": "a68f19ab5516f97f6719",
-    "url": "/puzzle-bingo339/static/css/main.4ea59ae6.chunk.css"
+    "revision": "41c5c3c830dbfdcc8428",
+    "url": "/puzzle-bingo339/static/css/main.ccbc7131.chunk.css"
   },
   {
-    "revision": "46e94754dc4fbf6cc3b4",
-    "url": "/puzzle-bingo339/static/js/2.ed81210d.chunk.js"
+    "revision": "6ba391e9e4fea5a3c0e3",
+    "url": "/puzzle-bingo339/static/js/2.9150d199.chunk.js"
   },
   {
-    "revision": "b1b67fa6e41a2fef6750",
-    "url": "/puzzle-bingo339/static/js/3.7310e830.chunk.js"
+    "revision": "1391c3fb13ae7d02aae5",
+    "url": "/puzzle-bingo339/static/js/3.f65fd57b.chunk.js"
   },
   {
-    "revision": "2f56ae359b7914f90271",
-    "url": "/puzzle-bingo339/static/js/4.d6f982c9.chunk.js"
+    "revision": "e94728bbb777ed48018c",
+    "url": "/puzzle-bingo339/static/js/4.d6bedb72.chunk.js"
   },
   {
-    "revision": "12075b9df5f04292be8c",
-    "url": "/puzzle-bingo339/static/js/5.09d12800.chunk.js"
+    "revision": "40c805bcb4f975dbd7cf",
+    "url": "/puzzle-bingo339/static/js/5.557f393e.chunk.js"
   },
   {
-    "revision": "a68f19ab5516f97f6719",
-    "url": "/puzzle-bingo339/static/js/main.ffc442da.chunk.js"
+    "revision": "41c5c3c830dbfdcc8428",
+    "url": "/puzzle-bingo339/static/js/main.616f8ee0.chunk.js"
   },
   {
-    "revision": "7d7427776dfa99c294fb",
-    "url": "/puzzle-bingo339/static/js/runtime~main.5236088b.js"
+    "revision": "a04a4c66e3ba901dae1f",
+    "url": "/puzzle-bingo339/static/js/runtime~main.94e6ab4a.js"
   },
   {
     "revision": "46db2040ebdb2bbf859ec9d5beb4cc86",
     "url": "/puzzle-bingo339/static/media/attack-bomb.46db2040.png"
   },
   {
-    "revision": "28a5e3dde21a88361684a4a64883ab9a",
-    "url": "/puzzle-bingo339/static/media/attack-fog.28a5e3dd.png"
+    "revision": "b61bc358c1b90ab79f69fba44e16df33",
+    "url": "/puzzle-bingo339/static/media/attack-fog.b61bc358.png"
   },
   {
     "revision": "2cdb76eef535799393bcd3380b52e611",

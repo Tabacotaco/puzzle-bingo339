@@ -2,7 +2,13 @@ import { useMemo } from 'react';
 import { useGame } from '../../services/game';
 
 export function useCurrentRound() {
-  const { rounds } = useGame();
+  const { rounds, attacks } = useGame();
+  const lastRound = useMemo(() => rounds[rounds.length - 1] || {}, [ rounds ]);
+  const lastAttack = useMemo(() => attacks[attacks.length - 1] || {}, [ attacks ]);
+  const { finish = false } = lastAttack;
 
-  return useMemo(() => rounds[rounds.length - 1] || {}, [ rounds ]);
+  return {
+    ...lastRound,
+    ...( finish ? {} : { attack: lastAttack })
+  };
 }
