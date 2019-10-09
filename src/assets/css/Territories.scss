@@ -33,12 +33,35 @@ div.territories {
     }
   }
 
-  &.attack-cell > div.row > div.zone.container.col > div.row > .bingo-number:hover {
-    background: var(--danger) !important;
-    opacity: .8;
+  &.attack-cell, &.attack-line-x, &.attack-line-y, &.attack-zone {
+    --hover-color: var(--teal);
+    --hover-text: var(--dark);
   }
 
-  &.attack-line-x {
+  &.defense-cell, &.defense-line-x, &.defense-line-y, &.defense-zone {
+    --hover-color: var(--indigo);
+    --hover-text: var(--white);
+  }
+
+  &.build-cell, &.build-line-x, &.build-line-y, &.build-zone {
+    --hover-color: var(--danger);
+    --hover-text: var(--white);
+  }
+
+  &.switch-zone {
+    --hover-color: var(--pink);
+    --hover-text: var(--white);
+  }
+
+  &.attack-cell, &.defense-cell, &.build-cell {
+    & > div.row > div.zone.container.col > div.row > .bingo-number:hover {
+      background: var(--hover-color) !important;
+      color: var(--hover-text) !important;
+      opacity: .8;
+    }
+  }
+
+  &.attack-line-x, &.defense-line-x, &.build-line-x {
     &[data-hover-x="0"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="0"],
     &[data-hover-x="1"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="1"],
     &[data-hover-x="2"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="2"],
@@ -48,12 +71,13 @@ div.territories {
     &[data-hover-x="6"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="6"],
     &[data-hover-x="7"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="7"],
     &[data-hover-x="8"] > div.row > div.zone.container.col > div.row > .bingo-number[data-x="8"] {
-      background: var(--danger) !important;
+      background: var(--hover-color) !important;
+      color: var(--hover-text) !important;
       opacity: .8;
     }
   }
 
-  &.attack-line-y {
+  &.attack-line-y, &.defense-line-y, &.build-line-y {
     &[data-hover-y="0"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="0"],
     &[data-hover-y="1"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="1"],
     &[data-hover-y="2"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="2"],
@@ -63,12 +87,13 @@ div.territories {
     &[data-hover-y="6"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="6"],
     &[data-hover-y="7"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="7"],
     &[data-hover-y="8"] > div.row > div.zone.container.col > div.row > .bingo-number[data-y="8"] {
-      background: var(--danger) !important;
+      background: var(--hover-color) !important;
+      color: var(--hover-text) !important;
       opacity: .8;
     }
   }
 
-  &.attack-zone {
+  &.attack-zone, &.defense-zone, &.build-zone, &.switch-zone {
     &[data-hover-z="0"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="0"],
     &[data-hover-z="1"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="1"],
     &[data-hover-z="2"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="2"],
@@ -78,7 +103,8 @@ div.territories {
     &[data-hover-z="6"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="6"],
     &[data-hover-z="7"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="7"],
     &[data-hover-z="8"] > div.row > div.zone.container.col > div.row > .bingo-number[data-z="8"] {
-      background: var(--danger) !important;
+      background: var(--hover-color) !important;
+      color: var(--hover-text) !important;
       opacity: .8;
     }
   }

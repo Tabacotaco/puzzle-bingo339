@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { useI18n } from '../../services/i18n';
-import { useGame } from '../../services/game';
+import { GameCustom } from '../../services/game';
 
 import { useChange, useCancelEvent, isInvalidDisabled } from '../../services/custom/events';
 
@@ -14,6 +14,7 @@ import logo from '../../assets/imgs/logo-bingo.png';
 import '../../assets/css/IntroModal.scss';
 
 
+// TODO: Custom Functions
 function useGameID(dispatch) {
   return useChange(
     useState((new URL(window.location.href).searchParams.get('gameID') || '').replace('#/', '')),
@@ -27,7 +28,7 @@ function useGameID(dispatch) {
 }
 
 function useCustom({ setShow }) {
-  const { dispatch } = useGame();
+  const { dispatch } = GameCustom.useGame();
   const [ gameID, onChangeID, invalidID ] = useGameID(dispatch);
   const [ expand, setExpand ] = useState(useMemo(() => gameID ? 'join' : 'main', [ gameID ]));
   const doSwitch = useCallback(collapseID => setExpand(collapseID), [ setExpand ]);
@@ -67,6 +68,8 @@ function useCustom({ setShow }) {
   };
 }
 
+
+// TODO: Component
 export default function IntroModal({ show: [ show, setShow ] }) {
   const { get } = useI18n();
   const { gameID, expand, invalidID, onSubmit, onSwitch, onChangeID, onNewGame, onJoinGame } = useCustom({ setShow });

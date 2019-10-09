@@ -18,6 +18,44 @@ body {
     transition: opacity .15s linear;
   }
 
+  & > div.popover {
+    pointer-events: none;
+    box-shadow: 0 .125rem .25rem rgba(249, 250, 251, .5) !important;
+
+    &[x-placement="bottom"] {
+      border-color: var(--dark);
+      background: var(--dark);
+      color: var(--white);
+
+      & > div.arrow {
+        border-color: inherit !important;
+
+        &::after { border-bottom-color: inherit !important; }
+
+        & + .popover-header {
+          background: inherit !important;
+          border-color: inherit !important;
+          color: inherit !important;
+          font-weight: bolder;
+
+          &::before { border-color: inherit !important; }
+
+          & + div.popover-body {
+            text-align: center;
+            background: var(--secondary) !important;
+            color: inherit !important;
+            border-radius: 0 0 .3rem .3rem;
+
+            & > img.defense-icon {
+              width: 30px;
+              height: 30px;
+            }
+          }
+        }
+      }
+    }
+  }
+
   // TODO: Colors
   .bg-primary { background: rgb(0, 123, 255) !important; }
   .bg-secondary { background: rgb(109, 118, 126) !important; }

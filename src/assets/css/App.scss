@@ -1,4 +1,4 @@
-div.playboard {
+div.app {
   & > div.row > div.col > div.territories div.zone.container.col {
     &.zone-bg-1 > div.row { background: linear-gradient(135deg, #343a40, #20A4F3, #FFC107); }
     &.zone-bg-2 > div.row { background: linear-gradient(180deg, #20A4F3, #FFC107); }

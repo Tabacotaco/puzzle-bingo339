@@ -1,19 +1,39 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useCallback, createElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { useI18n } from '../../services/i18n';
-import { useGame } from '../../services/game';
-import { useCurrentRound } from '../../services/custom/game';
+import { GameCustom } from '../../services/game';
 
 import { BsContainer, BsRow, BsCol } from '../bs/Grid';
-import StepModal from './StepModal';
-import { CardDashboard } from './BingoCard';
+
+import BingoCard from './BingoCard';
+import Territories from './Territories';
 
 import '../../assets/css/GameStep.scss';
 
 
+// TODO: Custom Functions
+function useStepName({ status, step = 0, card = {} }) {
+  return useMemo(() => {
+    switch (status) {
+      case 'WAITING'  : return 'Waiting';
+      case 'FINISH'   : return 'Finish';
+      case 'PLAYING'  :
+        switch (step) {
+          case 0      : return 'Switch';
+          case 1      : return 'GetCard';
+          case 2      : return 'ShowCard';
+          case 3      : return 'ATTACK' === card.type ? 'Attack' : null;
+          default     : return null;
+        }
+      default         : return null;
+    }
+  }, [ status, step, card ]);
+}
+
+
 // TODO: Private Components
-function CenterMessage({ icon, children, onClose = () => {}}) {
+function CenterMessage({ icon, children, onClose = () => {} }) {
   const { get } = useI18n();
 
   return (
@@ -37,66 +57,120 @@ function CenterMessage({ icon, children, onClose = () => {}}) {
   );
 };
 
+const Step = {
+  Waiting({ onCancelWaiting = () => {} }) {
+    return (
+      <div className="step-modal d-flex justify-content-center">
+        <CenterMessage icon={{ className: 'fa fa-spinner', align: 'right', animation: 'rotate' }} onClose={ onCancelWaiting }>
+          <span className="waiting font-weight-bolder">
+            Waiting
+          </span>
+        </CenterMessage>
+      </div>
+    );
+  },
+  
+  Finish({ onGameFinish = () => {} }) {
+    return (
+      <div className="step-modal d-flex justify-content-center">
+        <CenterMessage onClose={ onGameFinish }>
+          Game Finished !
+        </CenterMessage>
+      </div>
+    );
+  },
+  
+  Switch() {
+    const { get } = useI18n();
+  
+    return (
+      <BsContainer className="switching-step" padding={ 3 } margin={{ t: 3 }} rounded colors={{ bg: 'warning', text: 'dark' }}>
+        <BsRow align="center">
+          <BsCol>
+            { get('MSG_WAITING_COMPETITOR') }
+          </BsCol>
+        </BsRow>
+      </BsContainer>
+    );
+  },
+  
+  GetCard() {
+    const { get } = useI18n();
+    const { dispatch } = GameCustom.useGame();
+    const onGetCard = useCallback(() => dispatch({ step: 2 }), [ dispatch ]);
+  
+    return (
+      <div className="step-modal d-flex justify-content-center">
+        <BsContainer className="center-message shadow-light" padding={ 3 } colors={{ bg: 'warning', text: 'dark' }}>
+          <BsRow align="center" padding={{ x: 2 }}>
+            <BsCol className="text-center" width={ 12 }>
+              { get('MSG_STEP_GET_CARD') }
+            </BsCol>
+  
+            <BsCol className="text-center" width={ 12 } margin={{ t: 3 }}>
+              <button type="button" className="btn btn-dark" onClick={ onGetCard }>
+                <i className="fa fa-magic mr-2" />{ get('BTN_GET_CARD') }
+              </button>
+            </BsCol>
+          </BsRow>
+        </BsContainer>
+      </div>
+    );
+  },
+  
+  ShowCard() {
+    const { card = {}, dispatch } = GameCustom.useGame();
+    const onUseCard = useCallback(() => dispatch({ step: 3 }), [ dispatch ]);
+  
+    return (
+      <div className="step-modal d-flex justify-content-center">
+        <BingoCard card={ card } onUseCard={ onUseCard } />
+      </div>
+    );
+  },
+  
+  Attack() {
+    const { get } = useI18n();
+    const { card = {}, dispatch } = GameCustom.useGame();
+    const hoverOn = GameCustom.useCardRange(card);
+  
+    const doAttack = useCallback(({ x, y, z }) => dispatch({
+      action : 'ATTACK',
+      target : hoverOn,
+      card, x, y, z,
+      onSuccess(content) {
+        console.log(content);
+      }
+    }), [ hoverOn, card, dispatch ]);
+  
+    return (
+      <div className="step-modal d-flex justify-content-center">
+        <div className="competitor-territories">
+          <h3 className="text-center bg-warning text-dark font-weight-bolder mt-3 py-3">
+            { get('MSG_ATTACK_COMPETITOR') }
+          </h3>
+  
+          <Territories isSelecting mode="attack" {...{
+            hoverOn,
+            cursor     : GameCustom.useCardImage(card),
+            onSelected : doAttack
+          }} />
+        </div>
+      </div>
+    );
+  }
+};
+
 
 // TODO: Main Component
-export default function GameStep({
-  onCancelWaiting  = () => {},
-  onVisibledChange = () => {},
-  onGameFinish     = () => {}
-}) {
-  const { get } = useI18n();
-  const { status } = useGame();
-  const { step = 0, card = {} } = useCurrentRound();
-  const isSwitching = useMemo(() => 'PLAYING' === status && step === 0, [ status, step ]);
+export default function GameStep(props) {
+  const { status, step = 0, card = {} } = GameCustom.useGame();
+  const name = useStepName({ status, step, card });
 
-  const isVisibled = useMemo(
-    () => [ 'WAITING', 'FINISH' ].indexOf(status) >= 0
-      || ('PLAYING' === status && ([ 1, 2 ].indexOf(step) >= 0 || (step === 3 && 'ATTACK' === card.type))),
-    [ status, step, card ]
-  );
-
-  useEffect(() => onVisibledChange(isVisibled));
-
-  return isSwitching ? (
-    <BsContainer className="switching-step" padding={ 3 } margin={{ t: 3 }} rounded colors={{ bg: 'warning', text: 'dark' }}>
-      <BsRow align="center">
-        <BsCol>
-          { get('MSG_WAITING_COMPETITOR') }
-        </BsCol>
-      </BsRow>
-    </BsContainer>
-
-  ) : !isVisibled ? null : (
-    <StepModal>
-      {(() => {
-        switch (status) {
-          case 'WAITING': return (
-            <CenterMessage icon={{ className: 'fa fa-spinner', align: 'right', animation: 'rotate' }} onClose={ onCancelWaiting }>
-              <span className="waiting font-weight-bolder">
-                Waiting
-              </span>
-            </CenterMessage>
-          );
-
-          case 'FINISH': return (
-            <CenterMessage onClose={ onGameFinish }>
-              Game Finished !
-            </CenterMessage>
-          );
-
-          case 'PLAYING': return (
-            <CardDashboard />
-          );
-          
-          default: return null;
-        }
-      })()}
-    </StepModal>
-  );
+  return useMemo(() => !name ? null : createElement(Step[ name ], props), [ name, props ]);
 };
 
 GameStep.propTypes = {
-  onCancelWaiting  : PropTypes.func,
-  onVisibledChange : PropTypes.func,
-  onGameFinish     : PropTypes.func
+  onCancelWaiting : PropTypes.func,
+  onGameFinish    : PropTypes.func
 };

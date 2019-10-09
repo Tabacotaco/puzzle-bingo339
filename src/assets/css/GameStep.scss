@@ -7,6 +7,15 @@ div.switching-step {
 }
 
 div.step-modal {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, .5);
+  z-index: 99;
+
   // TODO: 置中訊息
   & > div.center-message {
     position: fixed;
@@ -39,6 +48,19 @@ div.step-modal {
     margin: 5vh 2.5vh;
     width: 280px;
   }
+
+  // TODO: 指定攻擊
+  & > div.competitor-territories {
+    width: 100%;
+  
+    & > div.territories {
+      padding: 0 1.5rem !important;
+    
+      div.zone.container.col > div.row {
+        background: radial-gradient(#343a40, #6c757d, #343a40);
+      }
+    }
+  }  
 }
 
 @keyframes game-tip-icon-rotate {

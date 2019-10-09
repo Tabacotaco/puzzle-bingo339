@@ -26,13 +26,15 @@
   "CARD_DESC_DEFENSE_LOCK": "Dispatch the guards to expel the thieves, and you can build after the expelling.",
   "CARD_DESC_DEFENSE_MIRROR": "Set up the mirror to reflect all the attack-effect from your competitor.",
 
+  "TERRITORIES_TITLE_DEFENSES": "Defense Effects",
+
   "MSG_REQUEST_ERROR": "System Error.",
   "MSG_REQUIRED_GAME_ID": "Please input the game ID.",
   "MSG_INVALID_VALUE": "Invalid value.",
   "MSG_INVALID_GAME_ID": "Invalid game ID.",
   "MSG_UNALLOWED_VISIT": "Unallowed to visit the game room.",
   "MSG_PLAYER_DUPLICATED": "You've been in the game room already.",
-  "MSG_WAITING_COMPETITOR": "Waiting for the competitor, and you can switch your territories right now.  By the way, maybe the competitor will attack your territories...",
+  "MSG_WAITING_COMPETITOR": "This is the competitor's round, and you can switch your territories right now.  By the way, maybe the competitor will attack your territories...",
   "MSG_STEP_GET_CARD": "It's your turn right now, and the game will give you a random card (for attack / defense).",
   "MSG_ATTACK_COMPETITOR": "Please specify the territories of the competitor to launch an attack..."
 }

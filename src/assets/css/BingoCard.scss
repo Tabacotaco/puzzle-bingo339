@@ -7,15 +7,3 @@ div.card.card-info {
     overflow-y: auto;
   }
 }
-
-div.competitor-territories {
-  width: 100%;
-
-  & > div.territories {
-    padding: 0 1.5rem !important;
-  
-    div.zone.container.col > div.row {
-      background: radial-gradient(#343a40, #6c757d, #343a40);
-    }
-  }
-}
