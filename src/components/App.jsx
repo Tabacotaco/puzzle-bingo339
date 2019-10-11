@@ -40,7 +40,7 @@ function useCustom({ step, card, dispatch }) {
 // TODO: Component
 export default function App() {
   const show = useState(true);
-  const { zones, step, card, defenses, dispatch } = GameCustom.useGame();
+  const { zones, step, card, dispatch } = GameCustom.useGame();
 
   const {
     isSelecting,
@@ -61,9 +61,8 @@ export default function App() {
             <BsContainer className="app text-white">
               <BsRow align="center">
                 <BsCol width={{ def: 11, sm: 10, md: 8, lg: 6}}>
-                  <Territories cursor={ 'defense' === mode ? GameCustom.useCardImage(card) : undefined } {...{
+                  <Territories isMime cursor={ 'defense' === mode ? GameCustom.useCardImage(card) : undefined } {...{
                     mode,
-                    defenses,
                     hoverOn,
                     isSelecting,
                     zones,

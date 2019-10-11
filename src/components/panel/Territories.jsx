@@ -1,11 +1,10 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { createElement, useCallback, useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import uuidv4 from 'uuid/v4';
 import $ from 'jquery';
 
 import { useI18n } from '../../services/i18n';
 import { GameCustom } from '../../services/game';
-import { EffectsType, TerritoryZoneType } from './options.type';
+import { DefaultZones, EmptyNumbers, TerritoryZoneType } from './options.type';
 
 import { BsContainer, BsRow, BsCol } from '../bs/Grid';
 
@@ -13,43 +12,17 @@ import '../../assets/css/Territories.scss';
 
 
 // TODO: Custom Function
-const empty = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
+function useLandClassName(className, { built = false, fog = false, occupied = false }) {
+  return useMemo(
+    () => `${ className } ${ fog ? 'poison-fog' : occupied ? 'occupied' : built ? 'built-house' : '' }`,
+    [ className, fog, occupied, built ]
+  );
+}
 
-const defaultZones = {
-  0: { bgClass: 'zone-bg-1' },
-  1: { bgClass: 'zone-bg-2' },
-  2: { bgClass: 'zone-bg-3' },
-  3: { bgClass: 'zone-bg-4' },
-  4: { bgClass: 'zone-bg-5' },
-  5: { bgClass: 'zone-bg-6' },
-  6: { bgClass: 'zone-bg-7' },
-  7: { bgClass: 'zone-bg-8' },
-  8: { bgClass: 'zone-bg-9' }
-};
-
-function useTerritories({ cursor, mode, defenses }) {
-  const { get } = useI18n();
+function useTerritories({ cursor, mode }) {
   const [ cursorOn, setCursorOn ] = useState({ show: false, clientX: 0, clientY: 0 });
-  const [ territoriesID ] = useState(uuidv4());
-
-  useEffect(() => {
-    if (Object.keys(defenses).length > 0) $(`#${ territoriesID }`).find('.defense-icons').each(
-      (i, el) => $(el).popover({
-        title     : get('TERRITORIES_TITLE_DEFENSES'),
-        container : 'body',
-        toggle    : 'popover',
-        html      : true,
-        trigger   : 'hover',
-        placement : 'bottom',
-        content   : defenses[`${ $(el).attr('data-x') }-${ $(el).attr('data-y') }`].map(
-          card => `<img alt="defense-icon" class="defense-icon" src="${ GameCustom.useCardImage(card) }" />`
-        ).join('')
-      })
-    );
-  });
 
   return {
-    territoriesID,
     cursorOn,
 
     onHoverCursor: useCallback(show => e => !cursor && mode !== 'switch' ? null : setCursorOn({
@@ -74,31 +47,49 @@ function useTerritories({ cursor, mode, defenses }) {
 // TODO: Private Component
 function Land({
   isSelecting = false,
-  defenses    = false,
   onSelected  = () => {},
+  effects: {
+    built    = false,
+    stong    = false,
+    fog      = false,
+    occupied = false,
+    mirror   = false
+  } = {},
   options: {
     i, z,
-    number = '',
-    x      = parseFloat(z) % 3 * 3 + i % 3,
-    y      = Math.floor(parseFloat(z) / 3) * 3 + Math.floor(i / 3)
+    n = '',
+    x = parseFloat(z) % 3 * 3 + i % 3,
+    y = Math.floor(parseFloat(z) / 3) * 3 + Math.floor(i / 3)
   }
 }) {
-  return (
-    <BsCol rounded border {...{
-      tagName    : isSelecting ? 'button' : 'div',
-      className  : `bingo-number text-center ${ !defenses ? '' : 'defense-icons' }`,
-      width      : 4,
-      padding    : 0,
-      options    : {
-        'data-x' : x,
-        'data-y' : y,
-        'data-z' : z,
-        ...(!isSelecting ? {} : { onClick: () => onSelected({ number, x, y, z })})
-      }
-    }}>
-      { number }
-    </BsCol>
-  );
+  const { get } = useI18n();
+  const ref = useRef(null);
+  const isDefensing = useMemo(() => stong || mirror, [ stong, mirror ]);
+  const className = useLandClassName('p-0 col-4 rounded border bingo-number text-center', { built, fog, occupied });
+
+  useEffect(() => {
+    if (isDefensing) $(ref.current).popover({
+      title     : get('TERRITORIES_TITLE_DEFENSES'),
+      container : 'body',
+      toggle    : 'popover',
+      html      : true,
+      trigger   : 'hover',
+      placement : 'bottom',
+      content   : `
+        ${ !stong  ? '' : `<img alt="stong-house" class="defense-icon" src="${ GameCustom.useCardImage({ type: 'DEFENSE', description: 'BOMB' }) }" />` }
+        ${ !mirror ? '' : `<img alt="mirror" class="defense-icon" src="${ GameCustom.useCardImage({ type: 'DEFENSE', description: 'MIRROR' }) }" />` }
+      `
+    });
+  });
+
+  return createElement(isSelecting ? 'button' : 'div', {
+    ref,
+    className,
+    'data-x' : x,
+    'data-y' : y,
+    'data-z' : z,
+    ...(!isSelecting ? {} : { onClick: () => onSelected({ number: n, x, y, z })})
+  }, fog ? '' : n);
 }
 
 
@@ -106,22 +97,20 @@ function Land({
 export default function Territories({
   cursor,
   mode,
-  defenses    = {},
+  zones       = DefaultZones,
   className   = '',
   hoverOn     = 'cell',
+  isMime      = false,
   isSelecting = false,
-  onSelected  = () => {},
-  zones       = defaultZones
+  onSelected  = () => {}
 }) {
   const {
-    territoriesID,
     onHoverCursor,
     cursorOn: { show, clientX, clientY, hoverX, hoverY, hoverZ }
-  } = useTerritories({ cursor, mode, defenses });
-console.log(zones);
+  } = useTerritories({ cursor, mode });
+
   return (
     <BsContainer padding={ 0 } options={{
-      id             : territoriesID,
       'data-hover-x' : hoverX,
       'data-hover-y' : hoverY,
       'data-hover-z' : hoverZ,
@@ -133,15 +122,13 @@ console.log(zones);
       )}
 
       <BsRow align="center">
-        { Object.keys(zones).map(z => ({ ...zones[z], z })).map(({ z, numbers = empty, bgClass }) => (
+        { Object.keys(zones).map(z => ({ ...zones[z], z })).map(({ z, numbers = EmptyNumbers, bgClass }) => (
           <BsCol key={`zone-${ z }`} className={`container zone ${ bgClass }`} padding={ 0 } margin={ 0 } width={ 4 } border rounded>
             <BsRow margin={ 1 } options={{ style: { opacity: isSelecting ? 1 : .8 }}}>
-              { numbers.map(({ x, y, number }, i) => (
+              { numbers.map(({ x, y, number, effects }, i) => (
                 <Land key={`number-${ number || i }`} {...{
-                  options  : { number, x, y, z, i },
-                  defenses : defenses[`${ x }-${ y }`],
-                  isSelecting,
-                  onSelected
+                  isSelecting , options : { n: number, x, y, z, i },
+                  onSelected  , effects : isMime ? effects : undefined
                 }} />
               ))}
             </BsRow>
@@ -159,9 +146,6 @@ Territories.propTypes = {
   hoverOn     : PropTypes.oneOf([ 'cell', 'line-x', 'line-y', 'zone' ]),
   cursor      : PropTypes.string,
   onSelected  : PropTypes.func,
-  defenses    : PropTypes.shape({
-    [ PropTypes.string.isRequired ]: EffectsType
-  }),
   zones       : PropTypes.oneOfType([
     PropTypes.exact({}),
     PropTypes.shape({

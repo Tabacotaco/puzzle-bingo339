@@ -4,21 +4,22 @@ import ServiceFn from './service.fn';
 
 // TODO: Reducers
 export function StateReducer(state, {
-  gameID      = state.gameID      , status ,
-  userID      = state.userID      , msg    ,
-  owner       = state.owner       , round  ,
-  competitor  = state.competitor  , step   ,
-  zones       = state.zones       , attack
+  gameID     = state.gameID     , status ,
+  userID     = state.userID     , msg    ,
+  owner      = state.owner      , round  ,
+  competitor = state.competitor , step   ,
+  zones      = state.zones      , effect
 }) {
+  const rounds = ServiceFn.getRounds(state, round, step);
+
   return {
     gameID , userID     ,
-    owner  , competitor , 
+    owner  , competitor ,
+    rounds , 
 
     msg    : msg ? [ ...state.msg, msg ] : state.msg,
     status : status || state.status,
-    rounds : ServiceFn.getRounds(state, round, step),
-    zones  : 'PLAYING' === status && Object.keys(state.zones).length === 0 ? ServiceFn.getNumbers()
-      : !attack ? zones : ServiceFn.getNumbersWithAttack(attack, zones)
+    zones  : ServiceFn.getNumbers(status, zones, effect)
   };
 };
 
@@ -48,12 +49,12 @@ export function ActionReducer(state, params) {
       break;
 
     case 'DEFENSE':
-      const defenseState = ServiceFn.doDefense(state, ServiceFn.getCardParams(params));
+      const defenseParams = ServiceFn.getCardParams(params);
 
-      dispatch({ step: 4 });
-      onSuccess({ defenses: defenseState.defenses });
+      dispatch({ step: 4, effect: defenseParams });
+      onSuccess(defenseParams);
       
-      return defenseState;
+      break;
 
     case 'BUILD':
       break;

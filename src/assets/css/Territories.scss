@@ -29,6 +29,11 @@ div.territories {
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
+
+        &.poison-fog {
+          background: var(--dark);
+          animation: poison-fog-shown 1 .8s linear;
+        }
       }
     }
   }
@@ -108,4 +113,9 @@ div.territories {
       opacity: .8;
     }
   }
+}
+
+@keyframes poison-fog-shown {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

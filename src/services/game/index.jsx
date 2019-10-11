@@ -21,19 +21,19 @@ export const GameCustom = {
   useCardImage : ServiceFn.getCardImage,
   useAllCards  : () => ServiceFn.getCards(),
   useGame      : () => {
-    const { gameID, userID, status, zones, rounds, attacks, defenses, dispatch } = useContext(GameContext);
+    const { gameID, userID, status, zones, rounds, dispatch } = useContext(GameContext);
     const round = useMemo(() => rounds[rounds.length - 1] || {}, [ rounds ]);
 
-    return { gameID, userID, status, zones, ...round, defenses, dispatch };
+    return { gameID, userID, status, zones, ...round, dispatch };
   }
 };
 
 export default function Game({ children }) {
   const state  = useReducer(StateReducer, defaultOptions);
-  const [{ defenses }, dispatch] = useReducer(ActionReducer, { dispatch: state[1], defenses: {} });
+  const action = useReducer(ActionReducer, { dispatch: state[1] });
 
   return (
-    <GameContext.Provider value={{ ...state[0], defenses, dispatch }}>
+    <GameContext.Provider value={{ ...state[0], dispatch: action[1] }}>
       { children }
     </GameContext.Provider>
   );

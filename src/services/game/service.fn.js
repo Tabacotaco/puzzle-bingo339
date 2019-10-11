@@ -3,6 +3,7 @@ import CamelCase from 'camelcase';
 
 import { CARDS } from '../../assets/config/chance-cards.json';
 
+import build_number from '../../assets/imgs/build-number.png';
 import attack_bomb from '../../assets/imgs/attack-bomb.png';
 import attack_fog from '../../assets/imgs/attack-fog.png';
 import attack_lock from '../../assets/imgs/attack-lock.png';
@@ -15,10 +16,58 @@ import defense_mirror from '../../assets/imgs/defense-mirror.png';
 function emptyFn() {};
 
 const imgs = {
+  build_number ,
   defense_bomb , attack_bomb ,
   defense_fog  , attack_fog  ,
   defense_lock , attack_lock ,
   defense_mirror
+};
+
+const getZIndex = (x, y) => Math.floor(x / 3) % 3 + Math.floor(y / 3) * 3;
+
+const getNumbers = () => {
+  const nums = [];
+
+  while (nums.length < 81) nums.push(nums.length + 1);
+
+  return nums
+    .sort(() => Math.floor(Math.random() * 12) % 3 - 2)
+    .map((number, i) => ({ number, zone: Math.floor(i / 9) }))
+    .reduce((result, { number, zone }) => {
+      const numbers = (result[ zone ] || { numbers: []}).numbers;
+
+      return {
+        ...result,
+        [ zone ]   : {
+          bgClass  : `zone-bg-${ zone + 1 }`,
+          numbers  : [ ...numbers, {
+            number,
+            x: parseFloat(zone) % 3 * 3 + numbers.length % 3,
+            y: Math.floor(parseFloat(zone) / 3) * 3 + Math.floor(numbers.length / 3)
+          }]
+        }
+      };
+    }, {});
+};
+
+const getEffects = (effects = {}, { type, description, ignoreMirror = false }) => {
+  const { built = false, stong = false, mirror = false } = effects;
+  const isAttack  = 'ATTACK' === type;
+  const validAtt  = ignoreMirror || !mirror;
+  const newMirror = isAttack && !ignoreMirror ? false : mirror;
+
+  switch (description) {
+    case 'MIRROR' : return { ...effects, mirror: 'DEFENSE' === type };
+    case 'LOCK'   : return { ...effects, mirror: newMirror, occupied: isAttack && !built && validAtt };
+    case 'FOG'    : return { ...effects, mirror: newMirror, fog: isAttack };
+    case 'BOMB'   : return {
+      ...effects,
+      mirror : newMirror,
+      built  : isAttack && !stong && validAtt ? false : built,
+      stong  : 'DEFENSE' === type && built
+    };
+    default       : return { ...effects, built: 'BUILD' === type };
+  }
 };
 
 const getCards = () => CARDS.map(card => Object.keys(card).reduce(
@@ -43,8 +92,6 @@ const getRoundCard = (function() {
   return i => cards[i];
 })();
 
-const getZIndex = (x, y) => Math.floor(x / 3) % 3 + Math.floor(y / 3) * 3;
-
 
 // TODO: Export Functions
 export default {
@@ -65,57 +112,21 @@ export default {
     }]
   },
 
-  getNumbers: () => {
-    const nums = [];
-  
-    while (nums.length < 81)
-      nums.push(nums.length + 1);
-  
-    return nums
-      .sort(() => Math.floor(Math.random() * 12) % 3 - 2)
-      .sort(() => Math.floor(Math.random() * 12) % 3 - 2)
-      .map((num, i) => ({
-        num,
-        zone: Math.floor(i / 9)
-      }))
-      .reduce((result, { num, zone }) => {
-        const numbers = (result[ zone ] || { numbers: []}).numbers;
+  getNumbers: (status, zones, effect) => 'PLAYING' === status && Object.keys(zones).length === 0 ? getNumbers()
+    : !effect ? zones : (({ ranges, type, description, ignoreMirror = false }) => ranges.reduce((newZones, { x, y, z }) => {
+      const { bgClass, numbers } = newZones[z];
 
-        return {
-          ...result,
-          [ zone ]   : {
-            bgClass  : `zone-bg-${ zone + 1 }`,
-            numbers  : [ ...numbers, {
-              number : num,
-              x      : parseFloat(zone) % 3 * 3 + numbers.length % 3,
-              y      : Math.floor(parseFloat(zone) / 3) * 3 + Math.floor(numbers.length / 3)
-            }]
-          }
-        };
-      }, {});
-  },
-
-  getNumbersWithAttack: ({ ranges, type, description }, zones) => ranges.reduce((result, { x, y, z }) => {
-    const { bgClass, numbers } = result[z];
-
-    return {
-      ...result,
-      [ z ]: {
-        bgClass,
-        numbers: numbers.map(({ x: $x, y: $y, number, attacks = [] }) => ({
-          x: $x,
-          y: $y,
-          number,
-          attacks: $x !== x || $y !== y ? attacks : [
-            ...attacks,
-            ...(attacks.filter(
-              card => JSON.stringify(card) === JSON.stringify({ type, description })
-            ).length > 0 ? [] : [{ type, description }])
-          ]
-        }))
-      }
-    };
-  }, zones),
+      return {
+        ...newZones,
+        [z]: {
+          bgClass,
+          numbers: numbers.map(land => land.x !== x || land.y !== y ? land : {
+            ...land,
+            effects: getEffects(land.effects, { type, description, ignoreMirror })
+          })
+        }
+      };
+    }, zones))(effect),
 
   getCards,
 
@@ -139,7 +150,7 @@ export default {
   },
 
   doWebsocket: dispatch => ({ gameID, type, value }) => dispatch({
-    [ 'rounds' === type ? 'round' : 'attacks' === type ? 'attack' : type ]: value,
+    [ 'rounds' === type ? 'round' : 'attacks' === type ? 'effect' : type ]: value,
     gameID,
     ...('competitor' === type ? { status: 'PLAYING' } : {})
   }),
@@ -152,24 +163,6 @@ export default {
       onSuccess(params || content);
     }
   },
-
-  doDefense: ({ dispatch, defenses = {} }, { type, description, ranges }) => ({
-    dispatch,
-    defenses: ranges.reduce((result, { x, y }) => {
-      const key = `${ x }-${ y }`;
-      const effects = Array.isArray(result[key]) ? result[key] : [];
-
-      return {
-        ...result,
-        [ key ]: [
-          ...effects,
-          ...(effects.filter(
-            card => JSON.stringify(card) === JSON.stringify({ type, description })
-          ).length > 0 ? [] : [{ type, description }])
-        ]
-      };
-    }, defenses)
-  }),
 
   useCardRange: (card = {}) => useMemo(() => card.rangeX === 1 && card.rangeY === 1 ? 'cell'
     : card.rangeX === 9 && card.rangeY === 1 ? 'line-y'

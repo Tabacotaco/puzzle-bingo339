@@ -1,35 +1,35 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a0bd7bf8198ee7536ff63d433c868cf3",
+    "revision": "22e178970ae8bb8a04b896dab58139ab",
     "url": "/puzzle-bingo339/index.html"
   },
   {
-    "revision": "91ed975df6f1a5aa0226",
-    "url": "/puzzle-bingo339/static/css/main.d1a57035.chunk.css"
+    "revision": "51aae3fe5f572e614816",
+    "url": "/puzzle-bingo339/static/css/main.7b1a8c63.chunk.css"
   },
   {
-    "revision": "d2f5a2a571650fb334e2",
-    "url": "/puzzle-bingo339/static/js/2.ec95028f.chunk.js"
+    "revision": "c5e88eaeb5c5b9cdd643",
+    "url": "/puzzle-bingo339/static/js/2.7ae34166.chunk.js"
   },
   {
-    "revision": "25a8093817f86872e490",
-    "url": "/puzzle-bingo339/static/js/3.146e0d38.chunk.js"
+    "revision": "7a91d7bf6bb5f4079c34",
+    "url": "/puzzle-bingo339/static/js/3.e4c1f682.chunk.js"
   },
   {
-    "revision": "6f6bfd2f2a9abece3d95",
-    "url": "/puzzle-bingo339/static/js/4.eca1aee0.chunk.js"
+    "revision": "c5bec26c60871246ba22",
+    "url": "/puzzle-bingo339/static/js/4.e0f2487b.chunk.js"
   },
   {
-    "revision": "4a5da637eeb982471af1",
-    "url": "/puzzle-bingo339/static/js/5.87e67d6c.chunk.js"
+    "revision": "f258f06967791772edf8",
+    "url": "/puzzle-bingo339/static/js/5.d4b4c8e4.chunk.js"
   },
   {
-    "revision": "91ed975df6f1a5aa0226",
-    "url": "/puzzle-bingo339/static/js/main.7cc7aa1e.chunk.js"
+    "revision": "51aae3fe5f572e614816",
+    "url": "/puzzle-bingo339/static/js/main.1a4141c3.chunk.js"
   },
   {
-    "revision": "933156ade7a27befcc43",
-    "url": "/puzzle-bingo339/static/js/runtime~main.5122ba39.js"
+    "revision": "7081539945246984d186",
+    "url": "/puzzle-bingo339/static/js/runtime~main.a888b9ec.js"
   },
   {
     "revision": "46db2040ebdb2bbf859ec9d5beb4cc86",
@@ -42,6 +42,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "2cdb76eef535799393bcd3380b52e611",
     "url": "/puzzle-bingo339/static/media/attack-lock.2cdb76ee.png"
+  },
+  {
+    "revision": "29b0c1e01ffc2212ab5b82a6b528c664",
+    "url": "/puzzle-bingo339/static/media/build-number.29b0c1e0.png"
   },
   {
     "revision": "ef3fe63afc00c40b1e58d4f3c439426f",

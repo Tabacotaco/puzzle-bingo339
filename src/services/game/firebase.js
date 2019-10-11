@@ -16,8 +16,6 @@ import {
 // TODO: Export Class
 function connectWebsocket(gameRoom, fn) {
   gameRoom.on('child_changed', snapshot => {
-    console.log(snapshot.key, snapshot.val());
-
     if ('competitor' === snapshot.key && snapshot.val() !== GameRoom.userID)
       fn({ gameID: gameRoom.key, type: 'competitor', value: snapshot.val() });
   });
@@ -26,10 +24,9 @@ function connectWebsocket(gameRoom, fn) {
     fn({ gameID: gameRoom.key, type: 'msg', value: snapshot.val() })
   );
 
-  gameRoom.child('rounds').on('child_added', snapshot => {
-    console.log(snapshot.key, snapshot.val());
+  gameRoom.child('rounds').on('child_added', snapshot =>
     fn({ gameID: gameRoom.key, type: 'rounds', value: snapshot.val() })
-  });
+  );
 
   gameRoom.child('attacks').on('child_added', snapshot =>
     snapshot.val().launcher === GameRoom.userID ? null : fn({
@@ -140,13 +137,11 @@ export default (bingo => ({
     .then(() => ({ status: 200, content: true }))
     .catch(err => ({ status: 500, content: err })),
 
-  doAttack : attack => {
-    console.log(attack);
-    return bingo.ref.child('attacks')
+  doAttack : attack => bingo.ref.child('attacks')
     .push({ ...attack, launcher: GameRoom.userID })
     .then(newAttack => new Promise(resolve => newAttack.once('child_changed', snapshot => resolve({
       status: 200,
       content: { attack: { ...snapshot.val(), uid: newAttack.key }}
     }))))
-    .catch(err => ({ status: 500, content: err }))}
+    .catch(err => ({ status: 500, content: err }))
 }))(new GameRoom());
