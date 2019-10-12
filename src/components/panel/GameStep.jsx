@@ -137,10 +137,7 @@ const Step = {
     const doAttack = useCallback(({ x, y, z }) => dispatch({
       action : 'ATTACK',
       target : hoverOn,
-      card, x, y, z,
-      onSuccess(content) {
-        console.log(content);
-      }
+      card, x, y, z
     }), [ hoverOn, card, dispatch ]);
   
     return (

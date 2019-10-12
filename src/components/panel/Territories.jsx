@@ -12,11 +12,66 @@ import '../../assets/css/Territories.scss';
 
 
 // TODO: Custom Function
-function useLandClassName(className, { built = false, fog = false, occupied = false }) {
-  return useMemo(
-    () => `${ className } ${ fog ? 'poison-fog' : occupied ? 'occupied' : built ? 'built-house' : '' }`,
-    [ className, fog, occupied, built ]
+function useLand({ isSelecting, number, effects = {} }) {
+  const { get } = useI18n();
+  const { built = false, stong = false, fog = false, occupied = false, mirror = false } = effects;
+
+  const landRef     = useRef();
+  const prevEffects = useRef();
+  const { current: $effects } = prevEffects || {};
+
+  const isDefensing = useMemo(() => stong || mirror, [ stong, mirror ]);
+  const tipContent  = useMemo(
+    () => `
+      ${ !stong  ? '' : `<img alt="stong-house" class="defense-icon" src="${ GameCustom.useCardImage({ type: 'DEFENSE', description: 'BOMB' }) }" />` }
+      ${ !mirror ? '' : `<img alt="mirror" class="defense-icon" src="${ GameCustom.useCardImage({ type: 'DEFENSE', description: 'MIRROR' }) }" />` }
+    `,
+    [ stong, mirror ]
   );
+  
+  useEffect(() => {
+    if (isDefensing) $(landRef.current).popover({
+      title   : get('TERRITORIES_TITLE_DEFENSES') ,
+      toggle  : 'popover'  , container : 'body'   ,
+      html    : true       , trigger   : 'hover'  ,
+      content : tipContent , placement : 'bottom'
+    });
+    prevEffects.current = { $built: built, $stong: stong, $fog: fog, $occupied: occupied, $mirror: mirror };
+  });
+
+  return {
+    landRef,
+
+    selectable  : useMemo(() => isSelecting && (fog || !occupied || !built), [ isSelecting, fog, occupied, built ]),
+
+    displayText : useMemo(() =>  fog || occupied ? '' : number, [ fog, occupied, number ]),
+
+    className   : useMemo(
+      () => `p-0 col-4 rounded border bingo-number text-center ${
+        fog ? 'poison-fog' : occupied ? 'occupied' : !built ? '' : stong ? 'built-stong' : 'built-house'
+      }`,
+      [ fog, occupied, stong, built ]
+    ),
+
+    animation   : useMemo(() => {
+      const { $built = false, $stong = false, $fog = false, $occupied = false, $mirror = false } = $effects || {};
+
+      if ($mirror && !mirror)
+        return 'mirror-trigger-shown 2 .8s linear';
+      else if (!$mirror && mirror)
+        return 'mirror-set 1 .6s linear';
+      else if ($fog && !fog)
+        return 'poison-fog-hidden 1 .8s linear';
+      else if ($occupied && !occupied)
+        return 'unoccupied-shown';
+      else if ($stong && !stong)
+        return 'stong-destroyed';
+      else if ($built && !built)
+        return 'house-destroyed';
+
+      return undefined;
+    }, [ $effects, built, stong, fog, occupied, mirror ]) 
+  };
 }
 
 function useTerritories({ cursor, mode }) {
@@ -48,13 +103,7 @@ function useTerritories({ cursor, mode }) {
 function Land({
   isSelecting = false,
   onSelected  = () => {},
-  effects: {
-    built    = false,
-    stong    = false,
-    fog      = false,
-    occupied = false,
-    mirror   = false
-  } = {},
+  effects,
   options: {
     i, z,
     n = '',
@@ -62,34 +111,17 @@ function Land({
     y = Math.floor(parseFloat(z) / 3) * 3 + Math.floor(i / 3)
   }
 }) {
-  const { get } = useI18n();
-  const ref = useRef(null);
-  const isDefensing = useMemo(() => stong || mirror, [ stong, mirror ]);
-  const className = useLandClassName('p-0 col-4 rounded border bingo-number text-center', { built, fog, occupied });
+  const { selectable, landRef, displayText, className, animation } = useLand({ isSelecting, number: n, effects });
 
-  useEffect(() => {
-    if (isDefensing) $(ref.current).popover({
-      title     : get('TERRITORIES_TITLE_DEFENSES'),
-      container : 'body',
-      toggle    : 'popover',
-      html      : true,
-      trigger   : 'hover',
-      placement : 'bottom',
-      content   : `
-        ${ !stong  ? '' : `<img alt="stong-house" class="defense-icon" src="${ GameCustom.useCardImage({ type: 'DEFENSE', description: 'BOMB' }) }" />` }
-        ${ !mirror ? '' : `<img alt="mirror" class="defense-icon" src="${ GameCustom.useCardImage({ type: 'DEFENSE', description: 'MIRROR' }) }" />` }
-      `
-    });
-  });
-
-  return createElement(isSelecting ? 'button' : 'div', {
-    ref,
+  return createElement(selectable ? 'button' : 'div', {
+    ref: landRef,
     className,
+    style: { animation },
     'data-x' : x,
     'data-y' : y,
     'data-z' : z,
-    ...(!isSelecting ? {} : { onClick: () => onSelected({ number: n, x, y, z })})
-  }, fog ? '' : n);
+    ...(!selectable ? {} : { onClick: () => onSelected({ number: n, x, y, z })})
+  }, displayText);
 }
 
 

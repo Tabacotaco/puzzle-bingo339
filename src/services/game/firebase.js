@@ -137,11 +137,30 @@ export default (bingo => ({
     .then(() => ({ status: 200, content: true }))
     .catch(err => ({ status: 500, content: err })),
 
-  doAttack : attack => bingo.ref.child('attacks')
+  doAttack : (attack, dispatch) => bingo.ref.child('attacks')
     .push({ ...attack, launcher: GameRoom.userID })
-    .then(newAttack => new Promise(resolve => newAttack.once('child_changed', snapshot => resolve({
-      status: 200,
-      content: { attack: { ...snapshot.val(), uid: newAttack.key }}
-    }))))
-    .catch(err => ({ status: 500, content: err }))
+    .then(newAttack => new Promise(resolve => bingo.ref.child('attacks').once('child_changed', snapshot => {
+      if (newAttack.key === snapshot.key) {
+        const { isReflection = false, type, description, ranges } = snapshot.val();
+  
+        if (!isReflection)
+          dispatch({ step: 4 });
+        else dispatch({
+          step    : 4,
+          effects : { type, description, ranges, ignoreMirror: true }
+        });
+        resolve({ status: 200, content: true });
+      }
+    })))
+    .catch(err => ({ status: 500, content: err })),
+
+  doReflection : isValidAttack => bingo.ref.child('attacks').once('value', snapshot => {
+    const attackIDs = Object.keys(snapshot.val());
+    const lastID = attackIDs[attackIDs.length - 1];
+
+    snapshot.ref.child(lastID).update({
+      ...snapshot.val()[lastID],
+      isReflection: !isValidAttack
+    });
+  })
 }))(new GameRoom());

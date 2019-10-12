@@ -27,7 +27,7 @@ function useGameID(dispatch) {
   );
 }
 
-function useCustom({ setShow }) {
+function useIntroModal({ setShow }) {
   const { dispatch } = GameCustom.useGame();
   const [ gameID, onChangeID, invalidID ] = useGameID(dispatch);
   const [ expand, setExpand ] = useState(useMemo(() => gameID ? 'join' : 'main', [ gameID ]));
@@ -72,7 +72,7 @@ function useCustom({ setShow }) {
 // TODO: Component
 export default function IntroModal({ show: [ show, setShow ] }) {
   const { get } = useI18n();
-  const { gameID, expand, invalidID, onSubmit, onSwitch, onChangeID, onNewGame, onJoinGame } = useCustom({ setShow });
+  const { gameID, expand, invalidID, onSubmit, onSwitch, onChangeID, onNewGame, onJoinGame } = useIntroModal({ setShow });
 
   return (
     <BsModal show={[ show, setShow ]} backdrop="static" size="lg" colors={{ bg: 'dark', text: 'white' }}>

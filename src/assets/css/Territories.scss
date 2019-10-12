@@ -30,14 +30,66 @@ div.territories {
         justify-content: center !important;
         align-items: center !important;
 
+        // TODO: Effect Animations
         &.poison-fog {
           background: var(--dark);
           animation: poison-fog-shown 1 .8s linear;
+        }
+
+        &.occupied {
+          position: relative;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("../imgs/attack-lock.png");
+            background-size: contain;
+            animation: dispatch-shown 1 .6s linear;
+          }
+        }
+
+        &.built-stong {
+          position: relative;
+          overflow: hidden;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("../imgs/defense-bomb.png");
+            background-size: contain;
+            animation: building-shown 1 .6s linear;
+          }
+        }
+
+        &.built-house {
+          position: relative;
+          overflow: hidden;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("../imgs/build-number.png");
+            background-size: contain;
+            animation: building-shown 1 .6s linear;
+          }
         }
       }
     }
   }
 
+  // TODO: Hover Effects
   &.attack-cell, &.attack-line-x, &.attack-line-y, &.attack-zone {
     --hover-color: var(--teal);
     --hover-text: var(--dark);
@@ -118,4 +170,54 @@ div.territories {
 @keyframes poison-fog-shown {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes poison-fog-hidden {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
+}
+
+@keyframes building-shown {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes stong-destroyed {
+  from { background-image: url("../imgs/defense-bomb.png"); background-size: contain; transform: scale(1) translateX(-12px); opacity: 1; }
+  to { background-image: url("../imgs/defense-bomb.png"); background-size: contain; transform: scale(1.5) translateX(12px); opacity: 0; }
+}
+
+@keyframes house-destroyed {
+  from { background-image: url("../imgs/build-number.png"); background-size: contain; transform: scale(1) translateX(-12px); opacity: 1; }
+  to { background-image: url("../imgs/build-number.png"); background-size: contain; transform: scale(1.5) translateX(12px); opacity: 0; }
+}
+
+@keyframes mirror-set {
+  from { transform: scale(1.5); background-image: url("../imgs/defense-mirror.png"); background-size: contain; opacity: 0; }
+  to { transform: scale(1); background-image: url("../imgs/defense-mirror.png"); background-size: contain; opacity: 1; }
+}
+
+@keyframes mirror-trigger-shown {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes dispatch-shown {
+  0% { transform: translateY(-12px); }
+  25% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  75% { transform: translateY(0px); }
+  100% { transform: translateY(-4px); }
+}
+
+@keyframes unoccupied-shown {
+  0% { background-image: url("../imgs/defense-lock.png"); background-size: contain; transform: scale(1.5); opacity: 0; }
+  40% { background-image: url("../imgs/defense-lock.png"); background-size: contain; transform: scale(1); opacity: 1; }
+  40% { background-image: none; transform: translateX(-10px); }
+  45% { background-image: none; transform: translateX(10px); }
+  50% { background-image: none; transform: translateX(-10px); }
+  55% { background-image: none; transform: translateX(10px); }
+  60% { background-image: url("../imgs/attack-lock.png"); background-size: contain; transform: translateX(0); opacity: 1; }
+  60% { background-image: url("../imgs/attack-lock.png"); background-size: contain; transform: translateX(-12px); opacity: 0; }
+
 }

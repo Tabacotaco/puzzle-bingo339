@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/puzzle-bingo339/static/css/main.7b1a8c63.chunk.css",
-    "main.js": "/puzzle-bingo339/static/js/main.1a4141c3.chunk.js",
-    "main.js.map": "/puzzle-bingo339/static/js/main.1a4141c3.chunk.js.map",
+    "main.css": "/puzzle-bingo339/static/css/main.c18bc598.chunk.css",
+    "main.js": "/puzzle-bingo339/static/js/main.69ec0289.chunk.js",
+    "main.js.map": "/puzzle-bingo339/static/js/main.69ec0289.chunk.js.map",
     "runtime~main.js": "/puzzle-bingo339/static/js/runtime~main.a888b9ec.js",
     "runtime~main.js.map": "/puzzle-bingo339/static/js/runtime~main.a888b9ec.js.map",
     "static/js/2.7ae34166.chunk.js": "/puzzle-bingo339/static/js/2.7ae34166.chunk.js",
@@ -14,17 +14,13 @@
     "static/js/5.d4b4c8e4.chunk.js": "/puzzle-bingo339/static/js/5.d4b4c8e4.chunk.js",
     "static/js/5.d4b4c8e4.chunk.js.map": "/puzzle-bingo339/static/js/5.d4b4c8e4.chunk.js.map",
     "index.html": "/puzzle-bingo339/index.html",
-    "precache-manifest.bbac501a2e387b00dc2c26048d0a0206.js": "/puzzle-bingo339/precache-manifest.bbac501a2e387b00dc2c26048d0a0206.js",
+    "precache-manifest.92ce9e1847fbe972318d98d742639f51.js": "/puzzle-bingo339/precache-manifest.92ce9e1847fbe972318d98d742639f51.js",
     "service-worker.js": "/puzzle-bingo339/service-worker.js",
-    "static/css/main.7b1a8c63.chunk.css.map": "/puzzle-bingo339/static/css/main.7b1a8c63.chunk.css.map",
+    "static/css/main.c18bc598.chunk.css.map": "/puzzle-bingo339/static/css/main.c18bc598.chunk.css.map",
     "static/media/attack-bomb.png": "/puzzle-bingo339/static/media/attack-bomb.46db2040.png",
     "static/media/attack-fog.png": "/puzzle-bingo339/static/media/attack-fog.b61bc358.png",
-    "static/media/attack-lock.png": "/puzzle-bingo339/static/media/attack-lock.2cdb76ee.png",
-    "static/media/build-number.png": "/puzzle-bingo339/static/media/build-number.29b0c1e0.png",
-    "static/media/defense-bomb.png": "/puzzle-bingo339/static/media/defense-bomb.ef3fe63a.png",
+    "static/media/Territories.scss": "/puzzle-bingo339/static/media/defense-mirror.9191c787.png",
     "static/media/defense-fog.png": "/puzzle-bingo339/static/media/defense-fog.4f4089fb.png",
-    "static/media/defense-lock.png": "/puzzle-bingo339/static/media/defense-lock.06459341.png",
-    "static/media/defense-mirror.png": "/puzzle-bingo339/static/media/defense-mirror.9191c787.png",
     "static/media/index.scss": "/puzzle-bingo339/static/media/fontawesome-webfont.fee66e71.woff"
   }
 }

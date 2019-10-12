@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import CamelCase from 'camelcase';
+import GameBase from './firebase';
 
 import { CARDS } from '../../assets/config/chance-cards.json';
 
@@ -56,10 +57,12 @@ const getEffects = (effects = {}, { type, description, ignoreMirror = false }) =
   const validAtt  = ignoreMirror || !mirror;
   const newMirror = isAttack && !ignoreMirror ? false : mirror;
 
+  if (isAttack && !ignoreMirror) GameBase.doReflection(isAttack && validAtt);
+
   switch (description) {
     case 'MIRROR' : return { ...effects, mirror: 'DEFENSE' === type };
     case 'LOCK'   : return { ...effects, mirror: newMirror, occupied: isAttack && !built && validAtt };
-    case 'FOG'    : return { ...effects, mirror: newMirror, fog: isAttack };
+    case 'FOG'    : return { ...effects, mirror: newMirror, fog: isAttack && validAtt };
     case 'BOMB'   : return {
       ...effects,
       mirror : newMirror,

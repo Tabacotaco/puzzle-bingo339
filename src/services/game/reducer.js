@@ -45,7 +45,7 @@ export function ActionReducer(state, params) {
       break;
 
     case 'ATTACK':
-      GameBase.doAttack(ServiceFn.getCardParams(params)).then(ServiceFn.doResponse(state, params));
+      GameBase.doAttack(ServiceFn.getCardParams(params), dispatch).then(ServiceFn.doResponse(state, params));
       break;
 
     case 'DEFENSE':
