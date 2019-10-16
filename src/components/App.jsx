@@ -13,6 +13,7 @@ import '../assets/css/App.scss';
 // TODO: Custom Function
 function useCustom({ step, card, dispatch }) {
   const defenseRange = GameCustom.useCardRange(card);
+  const { roundUID } = GameCustom.useGame();
 
   return {
     isSelecting: useMemo(() => step === 4 || (step === 3 && 'DEFENSE' === card.type), [ step, card ]),
@@ -24,15 +25,18 @@ function useCustom({ step, card, dispatch }) {
     onBackToMenu: useCallback(() => window.location.reload(), []),
 
     onSelected: useCallback(({ x, y, z, number }) => {
-      if (step === 3 && 'DEFENSE' === card.type) dispatch({
+      if (step === 4) dispatch({
+        action : 'BUILD',
+        target : 'cell',
+        card   : { type: 'BUILD', description: 'CALL_NUMBER' },
+        roundUID, number
+      });
+      else if (step === 3 && 'DEFENSE' === card.type) dispatch({
         action : 'DEFENSE',
         target : defenseRange,
-        card, x, y, z,
-        onSuccess(content) {
-          console.log(content);
-        }
+        roundUID, card, x, y, z
       });
-    }, [ card, step, dispatch, defenseRange ])
+    }, [ roundUID, card, step, dispatch, defenseRange ])
   };
 }
 

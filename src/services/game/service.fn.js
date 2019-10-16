@@ -24,6 +24,8 @@ const imgs = {
   defense_mirror
 };
 
+const isBuildCase = ({ type, description, number }) => 'BUILD' === type && 'CALL_NUMBER' === description && 'number' === typeof number && !isNaN(number);
+
 const getZIndex = (x, y) => Math.floor(x / 3) % 3 + Math.floor(y / 3) * 3;
 
 const getNumbers = () => {
@@ -101,49 +103,69 @@ export default {
 
   getAction: params => 'object' === typeof params ? params : { action: params },
 
-  getRounds: ({ userID = '', rounds }, newRound, step) => {
+  getRounds: ({ userID = '', rounds }, newRound, step, effect) => {
     const isMyTurn = (newRound || rounds[rounds.length - 1] || {}).caller === userID;
-  
-    if (newRound) return [ ...rounds, !isMyTurn ? newRound : {
+
+    if (newRound) return [ ...rounds, !isMyTurn ? { ...newRound, step: 0 } : {
       ...newRound,
       step: 1,
       card: getRoundCard(Math.floor(rounds.length / 2))
     }];
-    return !isMyTurn || (!step && step !== 0) ? rounds : [ ...rounds.slice(0, rounds.length - 1), {
+
+    return (!isMyTurn || (!step && step !== 0) ? rounds : [ ...rounds.slice(0, rounds.length - 1), {
       ...rounds[ rounds.length - 1 ],
       step
-    }]
+    }]).map(round => !effect || effect.roundUID !== round.roundUID ? round : {
+      ...round,
+      number: effect.number
+    })
   },
 
-  getNumbers: (status, zones, effect) => 'PLAYING' === status && Object.keys(zones).length === 0 ? getNumbers()
-    : !effect ? zones : (({ ranges, type, description, ignoreMirror = false }) => ranges.reduce((newZones, { x, y, z }) => {
+  getNumbers: (status, zones, effect) => {
+    if ('PLAYING' === status && Object.keys(zones).length === 0)
+      return getNumbers();
+    else if (!effect)
+      return zones;
+
+    const { number, ranges, type, description, ignoreMirror = false } = effect;
+
+    return isBuildCase(effect) ? Object.keys(zones).map(z => ({ zone: z, options: zones[z] })).reduce((newZones, { zone, options }) => ({
+      ...newZones,
+      [zone]: {
+        ...options,
+        numbers: options.numbers.map(land => land.number !== number ? land : {
+          ...land,
+          effects: getEffects(land.effects, { type, description })
+        })
+      }
+    }), {}) : ranges.reduce((newZones, { x, y, z }) => {
       const { bgClass, numbers } = newZones[z];
 
-      return {
-        ...newZones,
-        [z]: {
-          bgClass,
-          numbers: numbers.map(land => land.x !== x || land.y !== y ? land : {
-            ...land,
-            effects: getEffects(land.effects, { type, description, ignoreMirror })
-          })
-        }
-      };
-    }, zones))(effect),
+      return { ...newZones, [z]: {
+        bgClass,
+        numbers: numbers.map(land => (land.x === x && land.y === y) || (!x && !y) ? {
+          ...land,
+          effects: getEffects(land.effects, { type, description, ignoreMirror })
+        } : land)
+      }};
+    }, zones);
+  },
 
   getCards,
 
   getCardImage: ({ type, description }) => imgs[`${ type.toLowerCase() }_${ description.toLowerCase() }`],
 
-  getCardParams: ({ target, x, y, z, card: { type, description }}) => {
+  getEffectParams: ({ roundUID, target, x, y, z, number, card: { type, description }}) => {
+    if ('BUILD' === type && 'CALL_NUMBER' === description && 'number' === typeof number && !isNaN(number))
+      return { roundUID, type, description, number };
     switch (target) {
-      case 'zone'   : return { type, description, ranges: [{ z }] };
-      case 'cell'   : return { type, description, ranges: [{ x, y, z }] };
-      case 'line-x' : return { type, description, ranges: (ranges => {
+      case 'zone'   : return { roundUID, type, description, ranges: [{ z }] };
+      case 'cell'   : return { roundUID, type, description, ranges: [{ x, y, z }] };
+      case 'line-x' : return { roundUID, type, description, ranges: (ranges => {
         while (ranges.length < 9) ranges.push({ x, y: ranges.length, z: getZIndex(x, ranges.length) });
         return ranges;
       })([]) };
-      case 'line-y' : return { type, description, ranges: (ranges => {
+      case 'line-y' : return { roundUID, type, description, ranges: (ranges => {
         while (ranges.length < 9) ranges.push({ y, x: ranges.length, z: getZIndex(ranges.length, y) });
         return ranges;
       })([]) };

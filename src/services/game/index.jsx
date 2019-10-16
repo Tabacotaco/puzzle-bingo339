@@ -23,8 +23,9 @@ export const GameCustom = {
   useGame      : () => {
     const { gameID, userID, status, zones, rounds, dispatch } = useContext(GameContext);
     const round = useMemo(() => rounds[rounds.length - 1] || {}, [ rounds ]);
+    const numbers = useMemo(() => rounds.filter(({ number }) => !!number).map(({ number }) => number), [ rounds ]);
 
-    return { gameID, userID, status, zones, ...round, dispatch };
+    return { gameID, userID, status, zones, numbers, ...round, dispatch };
   }
 };
 

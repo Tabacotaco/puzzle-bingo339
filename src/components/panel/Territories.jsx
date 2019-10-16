@@ -37,6 +37,8 @@ function useLand({ isSelecting, number, effects = {} }) {
       content : tipContent , placement : 'bottom'
     });
     prevEffects.current = { $built: built, $stong: stong, $fog: fog, $occupied: occupied, $mirror: mirror };
+
+    return () => { $('.popover').remove(); };
   });
 
   return {

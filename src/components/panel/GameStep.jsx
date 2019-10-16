@@ -131,14 +131,14 @@ const Step = {
   
   Attack() {
     const { get } = useI18n();
-    const { card = {}, dispatch } = GameCustom.useGame();
+    const { roundUID, card = {}, dispatch } = GameCustom.useGame();
     const hoverOn = GameCustom.useCardRange(card);
   
     const doAttack = useCallback(({ x, y, z }) => dispatch({
       action : 'ATTACK',
       target : hoverOn,
-      card, x, y, z
-    }), [ hoverOn, card, dispatch ]);
+      roundUID, card, x, y, z
+    }), [ hoverOn, roundUID, card, dispatch ]);
   
     return (
       <div className="step-modal d-flex justify-content-center">

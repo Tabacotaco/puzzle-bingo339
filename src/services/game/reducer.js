@@ -4,28 +4,23 @@ import ServiceFn from './service.fn';
 
 // TODO: Reducers
 export function StateReducer(state, {
-  gameID     = state.gameID     , status ,
-  userID     = state.userID     , msg    ,
-  owner      = state.owner      , round  ,
-  competitor = state.competitor , step   ,
-  zones      = state.zones      , effect
+  status , gameID     = state.gameID     ,
+  msg    , userID     = state.userID     ,
+  round  , owner      = state.owner      ,
+  step   , competitor = state.competitor ,
+  effect , zones      = state.zones
 }) {
-  const rounds = ServiceFn.getRounds(state, round, step);
-
   return {
-    gameID , userID     ,
-    owner  , competitor ,
-    rounds , 
-
-    msg    : msg ? [ ...state.msg, msg ] : state.msg,
-    status : status || state.status,
-    zones  : ServiceFn.getNumbers(status, zones, effect)
+    gameID     , status : status || state.status,
+    userID     , msg    : msg ? [ ...state.msg, msg ] : state.msg,
+    owner      , rounds : ServiceFn.getRounds(state, round, step, effect),
+    competitor , zones  : ServiceFn.getNumbers(status, zones, effect)
   };
 };
 
 export function ActionReducer(state, params) {
   const { dispatch } = state;
-  const { action, gameID, msg, step, onSuccess = () => {} } = ServiceFn.getAction(params);
+  const { action, gameID, step, msg } = ServiceFn.getAction(params);
 
   switch (action) {
     case 'SEARCH_GAME':
@@ -45,24 +40,25 @@ export function ActionReducer(state, params) {
       break;
 
     case 'ATTACK':
-      GameBase.doAttack(ServiceFn.getCardParams(params), dispatch).then(ServiceFn.doResponse(state, params));
+      GameBase.doAttack(ServiceFn.getEffectParams(params), dispatch).then(ServiceFn.doResponse(state, params));
       break;
 
     case 'DEFENSE':
-      const defenseParams = ServiceFn.getCardParams(params);
-
-      dispatch({ step: 4, effect: defenseParams });
-      onSuccess(defenseParams);
-      
+      dispatch({ step: 4, effect: ServiceFn.getEffectParams(params) });
       break;
 
     case 'BUILD':
+      GameBase.doBuild(params).then(ServiceFn.doResponse(state, params, {
+        step: 0,
+        effect: ServiceFn.getEffectParams(params)
+      }));
       break;
+
     default:
-      if ((step !== 0 && !step && isNaN(step)) || step < 0 || step > 3) throw new Error(
-        `The step number is wrong(${ step }).`
-      );
-      dispatch({ step });
+      if ('number' === typeof step && !isNaN(step))
+        dispatch({ step });
+      else
+        throw new Error('Invalid action name: ', action);
   }
   return state;
 };

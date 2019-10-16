@@ -24,10 +24,6 @@ function connectWebsocket(gameRoom, fn) {
     fn({ gameID: gameRoom.key, type: 'msg', value: snapshot.val() })
   );
 
-  gameRoom.child('rounds').on('child_added', snapshot =>
-    fn({ gameID: gameRoom.key, type: 'rounds', value: snapshot.val() })
-  );
-
   gameRoom.child('attacks').on('child_added', snapshot =>
     snapshot.val().launcher === GameRoom.userID ? null : fn({
       gameID : gameRoom.key,
@@ -35,6 +31,24 @@ function connectWebsocket(gameRoom, fn) {
       value  : snapshot.val()
     })
   );
+
+  gameRoom.child('rounds').on('child_added', snapshot => {
+    const roundUID = snapshot.key;
+    const { caller } = snapshot.val();
+
+    fn({ gameID: gameRoom.key, type: 'rounds', value: { ...snapshot.val(), roundUID: snapshot.key }});
+
+    if (GameRoom.userID !== caller) gameRoom.child('rounds').once('child_changed', snapshot => fn({
+      gameID: gameRoom.key,
+      type: 'effect',
+      value: {
+        roundUID,
+        type        : 'BUILD',
+        description : 'CALL_NUMBER',
+        number      : snapshot.val().number
+      }
+    }));
+  });
 }
 
 class GameRoom {
@@ -115,7 +129,7 @@ class GameRoom {
       caller: values.owner
     })).then(() => new Promise(resolve => this.ref.once('value', snapshot => resolve({
       status  : 200,
-      content : { ...snapshot.val(), rounds: undefined }
+      content : { ...snapshot.val(), userID: GameRoom.userID, rounds: undefined }
     }))));
   }
 }
@@ -136,6 +150,17 @@ export default (bingo => ({
     .push({ sender: GameRoom.userID, msg })
     .then(() => ({ status: 200, content: true }))
     .catch(err => ({ status: 500, content: err })),
+
+  doBuild  : ({ roundUID, number }) => new Promise(resolve => bingo.ref.once('value', snapshot => {
+    const { owner, competitor } = snapshot.val();
+
+    snapshot.ref.child('rounds').child(roundUID).once('value', snapshot => snapshot.ref
+      .update({ ...snapshot.val(), number })
+      .then(() => bingo.ref.child('rounds').push({ caller: competitor === GameRoom.userID ? owner : competitor }))
+      .then(() => resolve({ status: 200, content: true }))
+      .catch(err => ({ status: 500, content: err }))
+    )
+  })),
 
   doAttack : (attack, dispatch) => bingo.ref.child('attacks')
     .push({ ...attack, launcher: GameRoom.userID })
