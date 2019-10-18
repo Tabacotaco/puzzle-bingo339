@@ -9,7 +9,7 @@ const defaultOptions = {
   gameID     : ''     , zones  : {},
   status     : 'NONE' , rounds : [],
   userID     : ''     , msg    : [],
-  owner      : ''     ,
+  owner      : ''     , score  : {},
   competitor : ''
 };
 
@@ -21,11 +21,11 @@ export const GameCustom = {
   useCardImage : ServiceFn.getCardImage,
   useAllCards  : () => ServiceFn.getCards(),
   useGame      : () => {
-    const { gameID, userID, status, zones, rounds, dispatch } = useContext(GameContext);
+    const { gameID, userID, status, zones, rounds, score, dispatch } = useContext(GameContext);
     const round = useMemo(() => rounds[rounds.length - 1] || {}, [ rounds ]);
     const numbers = useMemo(() => rounds.filter(({ number }) => !!number).map(({ number }) => number), [ rounds ]);
 
-    return { gameID, userID, status, zones, numbers, ...round, dispatch };
+    return { gameID, userID, status, zones, numbers, ...round, score, dispatch };
   }
 };
 

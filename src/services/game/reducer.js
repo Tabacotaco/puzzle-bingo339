@@ -10,11 +10,14 @@ export function StateReducer(state, {
   step   , competitor = state.competitor ,
   effect , zones      = state.zones
 }) {
+  zones = ServiceFn.getNumbers(status, zones, effect);
+
   return {
     gameID     , status : status || state.status,
     userID     , msg    : msg ? [ ...state.msg, msg ] : state.msg,
     owner      , rounds : ServiceFn.getRounds(state, round, step, effect),
-    competitor , zones  : ServiceFn.getNumbers(status, zones, effect)
+    competitor , score  : ServiceFn.getScore(zones),
+    zones
   };
 };
 

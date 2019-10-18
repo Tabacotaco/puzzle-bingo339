@@ -68,7 +68,7 @@ class GameRoom {
   ref = null;
 
   constructor() {
-    GameRoom.database.ref('GameRoom').child(GameRoom.uid).once('value',
+    if (!!GameRoom.uid) GameRoom.database.ref('GameRoom').child(GameRoom.uid).once('value',
       snapshot => !snapshot.exists() ? null : snapshot.ref.remove()
     );
   }

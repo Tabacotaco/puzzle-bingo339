@@ -6,6 +6,8 @@
   "BTN_GET_CARD": "Get Card",
   "BTN_USE_CARD": "Use It",
 
+  "LABEL_LINE_COUNT": "Line Count",
+
   "CARD_TITLE_FOR_ATTACK": "You got a [Attack Card]",
   "CARD_TITLE_FOR_DEFENSE": "You got a [Defense Card]",
   "CARD_LABEL_COUNT": "Count",

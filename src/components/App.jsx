@@ -1,4 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react';
+
+import { useI18n } from '../services/i18n';
 import { GameCustom } from '../services/game';
 
 import { BsContainer, BsRow, BsCol } from './bs/Grid';
@@ -43,8 +45,9 @@ function useCustom({ step, card, dispatch }) {
 
 // TODO: Component
 export default function App() {
+  const { get } = useI18n();
   const show = useState(true);
-  const { zones, step, card, dispatch } = GameCustom.useGame();
+  const { zones, step, card, score: { lines = 0 }, dispatch } = GameCustom.useGame();
 
   const {
     isSelecting,
@@ -62,6 +65,8 @@ export default function App() {
       <BsContainer padding={ 0 }>
         <BsRow>
           <BsCol padding={ 0 }>
+            <h4>{ get('LABEL_LINE_COUNT') }: { lines }</h4>
+
             <BsContainer className="app text-white">
               <BsRow align="center">
                 <BsCol width={{ def: 11, sm: 10, md: 8, lg: 6}}>

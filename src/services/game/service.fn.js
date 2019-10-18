@@ -174,6 +174,26 @@ export default {
     }
   },
 
+  getScore: zones => {
+    let   lines  = 0;
+    const builts = Object.keys(zones).reduce((result, z) => [
+      ...result,
+      zones[z].numbers.filter(n => (n.effects || {}).built === true).map(({ x, y }) => ({ x, y }))
+    ], []);
+
+    for (let i = 0; i < 9; i++) {
+      lines += builts.filter(({ x }) => x === i).length === 9 ? 1 : 0;
+      lines += builts.filter(({ y }) => y === i).length === 9 ? 1 : 0;
+    }
+    lines += builts.filter(({ x, y }) => x === y).length === 9 ? 1 : 0;
+    lines += builts.filter(({ x, y }) => (x + y) === 8).length === 9 ? 1 : 0;
+
+    return {
+      lines,
+      readyHand: lines >= 2
+    };
+  },
+
   doWebsocket: dispatch => ({ gameID, type, value }) => dispatch({
     [ 'rounds' === type ? 'round' : 'attacks' === type ? 'effect' : type ]: value,
     gameID,

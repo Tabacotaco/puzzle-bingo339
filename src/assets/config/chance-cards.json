@@ -4,19 +4,7 @@
     "TYPE": "ATTACK",
     "RANGE_X": 1,
     "RANGE_Y": 1,
-    "COUNT": 9
-  }, {
-    "DESCRIPTION": "BOMB",
-    "TYPE": "ATTACK",
-    "RANGE_X": 1,
-    "RANGE_Y": 9,
-    "COUNT": 3
-  }, {
-    "DESCRIPTION": "BOMB",
-    "TYPE": "ATTACK",
-    "RANGE_X": 9,
-    "RANGE_Y": 1,
-    "COUNT": 3
+    "COUNT": 18
   }, {
     "DESCRIPTION": "BOMB",
     "TYPE": "ATTACK",
@@ -28,19 +16,7 @@
     "TYPE": "DEFENSE",
     "RANGE_X": 1,
     "RANGE_Y": 1,
-    "COUNT": 9
-  }, {
-    "DESCRIPTION": "BOMB",
-    "TYPE": "DEFENSE",
-    "RANGE_X": 1,
-    "RANGE_Y": 9,
-    "COUNT": 3
-  }, {
-    "DESCRIPTION": "BOMB",
-    "TYPE": "DEFENSE",
-    "RANGE_X": 9,
-    "RANGE_Y": 1,
-    "COUNT": 3
+    "COUNT": 18
   }, {
     "DESCRIPTION": "BOMB",
     "TYPE": "DEFENSE",
@@ -52,120 +28,36 @@
     "TYPE": "ATTACK",
     "RANGE_X": 1,
     "RANGE_Y": 1,
-    "COUNT": 9
-  }, {
-    "DESCRIPTION": "LOCK",
-    "TYPE": "ATTACK",
-    "RANGE_X": 1,
-    "RANGE_Y": 9,
-    "COUNT": 3
-  }, {
-    "DESCRIPTION": "LOCK",
-    "TYPE": "ATTACK",
-    "RANGE_X": 9,
-    "RANGE_Y": 1,
-    "COUNT": 3
-  }, {
-    "DESCRIPTION": "LOCK",
-    "TYPE": "ATTACK",
-    "RANGE_X": 3,
-    "RANGE_Y": 3,
-    "COUNT": 1
+    "COUNT": 27
   }, {
     "DESCRIPTION": "LOCK",
     "TYPE": "DEFENSE",
     "RANGE_X": 1,
     "RANGE_Y": 1,
-    "COUNT": 9
-  }, {
-    "DESCRIPTION": "LOCK",
-    "TYPE": "DEFENSE",
-    "RANGE_X": 1,
-    "RANGE_Y": 9,
-    "COUNT": 3
-  }, {
-    "DESCRIPTION": "LOCK",
-    "TYPE": "DEFENSE",
-    "RANGE_X": 9,
-    "RANGE_Y": 1,
-    "COUNT": 3
-  }, {
-    "DESCRIPTION": "LOCK",
-    "TYPE": "DEFENSE",
-    "RANGE_X": 3,
-    "RANGE_Y": 3,
-    "COUNT": 1
-  }, {
-    "DESCRIPTION": "FOG",
-    "TYPE": "ATTACK",
-    "RANGE_X": 1,
-    "RANGE_Y": 1,
-    "COUNT": 9
-  }, {
-    "DESCRIPTION": "FOG",
-    "TYPE": "ATTACK",
-    "RANGE_X": 1,
-    "RANGE_Y": 9,
-    "COUNT": 3
-  }, {
-    "DESCRIPTION": "FOG",
-    "TYPE": "ATTACK",
-    "RANGE_X": 9,
-    "RANGE_Y": 1,
-    "COUNT": 3
+    "COUNT": 27
   }, {
     "DESCRIPTION": "FOG",
     "TYPE": "ATTACK",
     "RANGE_X": 3,
     "RANGE_Y": 3,
-    "COUNT": 1
-  }, {
-    "DESCRIPTION": "FOG",
-    "TYPE": "DEFENSE",
-    "RANGE_X": 1,
-    "RANGE_Y": 1,
     "COUNT": 9
-  }, {
-    "DESCRIPTION": "FOG",
-    "TYPE": "DEFENSE",
-    "RANGE_X": 1,
-    "RANGE_Y": 9,
-    "COUNT": 3
-  }, {
-    "DESCRIPTION": "FOG",
-    "TYPE": "DEFENSE",
-    "RANGE_X": 9,
-    "RANGE_Y": 1,
-    "COUNT": 3
   }, {
     "DESCRIPTION": "FOG",
     "TYPE": "DEFENSE",
     "RANGE_X": 3,
     "RANGE_Y": 3,
-    "COUNT": 1
-  }, {
-    "DESCRIPTION": "MIRROR",
-    "TYPE": "DEFENSE",
-    "RANGE_X": 1,
-    "RANGE_Y": 1,
     "COUNT": 9
   }, {
     "DESCRIPTION": "MIRROR",
     "TYPE": "DEFENSE",
     "RANGE_X": 1,
-    "RANGE_Y": 9,
-    "COUNT": 3
-  }, {
-    "DESCRIPTION": "MIRROR",
-    "TYPE": "DEFENSE",
-    "RANGE_X": 9,
     "RANGE_Y": 1,
-    "COUNT": 3
+    "COUNT": 18
   }, {
     "DESCRIPTION": "MIRROR",
     "TYPE": "DEFENSE",
     "RANGE_X": 3,
     "RANGE_Y": 3,
-    "COUNT": 1
+    "COUNT": 3
   }]
 }
